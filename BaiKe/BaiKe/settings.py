@@ -14,7 +14,11 @@ BOT_NAME = 'BaiKe'
 SPIDER_MODULES = ['BaiKe.spiders']
 NEWSPIDER_MODULE = 'BaiKe.spiders'
 
-DOWNLOAD_PATH = r"F:\PingAn_data\BaiKe\demo.json"
+DOWNLOAD_PATH = {'科技产品': r'F:\PingAn_data\BaiKe\product.json',
+                 '公司': r'F:\PingAn_data\BaiKe\company.json',
+                 '人物': r'F:\PingAn_data\BaiKe\character.json',
+                 '品牌': r'F:\PingAn_data\BaiKe\brand.json'}
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'BaiKe (+http://www.yourdomain.com)'
 
@@ -23,6 +27,13 @@ ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
+
+# mysql default set
+MYSQL_HOST = 'localhost'
+MYSQL_PORT = 3306
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = '123456'
+MYSQL_DB = 'SpiderData'
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay

@@ -18,4 +18,6 @@ class BaikeItem(scrapy.Item):
     basic_info = scrapy.Field()
     summary = scrapy.Field()
     url = scrapy.Field()
+    level_1 = scrapy.Field()
+    level_2 = scrapy.Field()
     pass

@@ -2,6 +2,8 @@ import requests
 import lxml
 import random
 import re
+import HTMLParser
+import pymysql
 import urllib.parse
 from lxml import etree
 from fake_useragent import UserAgent
@@ -68,10 +70,23 @@ def base_msg(html_tree):
 def summary_data(html_tree):
     dom_str = html_tree.xpath('//div[@class="lemma-summary"]')
     dom = lxml.etree.tostring(dom_str[0]).decode("utf8")
-    print(dom)
     new_str = re.sub("\<[a-z]{2,}.*?\>", "", dom)
     new_str = re.sub("\<\/[a-z]{2,}.*?\>", "", new_str)
-    print(new_str)
+    cn_html = decode_html(new_str)
+    link_list = re.findall("\<a.*?\<\/a\>", cn_html)
+    data = {'link_item': [], 'html_str': re.sub('\<a(.*?)\>', '<a>', cn_html)}
+    for item in link_list:
+        link_str = re.sub("\<.*?\>", "", item)
+        link_url = re.findall("href\=\"(.*?)\"", item)
+        if link_str and link_url:
+            data['link_item'].append({'word': link_str, 'link': link_url[0]})
+    return data
+
+
+def decode_html(in_put):
+    h = HTMLParser.HTMLParser()
+    s = h.unescape(in_put)
+    return s
 
 
 def crawl_test():
@@ -86,8 +101,25 @@ def crawl_test():
     req = base_req(url)
     my_tree = load_html(req)
     data = summary_data(my_tree)
-    # print(data)
+    print(data)
+
+
+def sql_select():
+    db = pymysql.connect(host="localhost", user="root", password="123456", port=3306, db="SpiderData")
+    cursor = db.cursor()
+    select_sql = "select * from baidubaike;"
+    cursor.execute(select_sql)
+    print("result:", cursor.rowcount)
+    one = cursor.fetchall()
+    print("result", one)
+    db.close()
+
+
+def re_test():
+    s = "https://translate.google.cn/#view=home"
+    data = re.findall(".*?#", s)
+    print(data)
 
 
 if __name__ == '__main__':
-    crawl_test()
+    re_test()
