@@ -1,0 +1,5 @@
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): www.suzhoufda.gov.cn:80
+DEBUG:urllib3.connectionpool:http://www.suzhoufda.gov.cn:80 "GET /gonggaogongshi_article-13-28011.html HTTP/1.1" 200 20220
+INFO:root:link: /upload/201705/19/201705190918110233.xlsx , file_name: 合格产品信息
+INFO:root:link: /upload/201705/19/201705190918432217.xlsx , file_name: 不合格产品信息
+INFO:root:[{'url': '/upload/201705/19/201705190918110233.xlsx', 'name': '苏州市食品药品监督管理局关于公布苏州市级食品安全监督抽检信息的公告（2017年第6期）合格产品信息_合格信息_@.xlsx', 'page_url': 'http://www.suzhoufda.gov.cn/gonggaogongshi_article-13-28011.html', 'page_title': '苏州市食品药品监督管理局关于公布苏州市级食品安全监督抽检信息的公告（2017年第6期）'}, {'url': '/upload/201705/19/201705190918432217.xlsx', 'name': '苏州市食品药品监督管理局关于公布苏州市级食品安全监督抽检信息的公告（2017年第6期）不合格产品信息_不合格信息_@.xlsx', 'page_url': 'http://www.suzhoufda.gov.cn/gonggaogongshi_article-13-28011.html', 'page_title': '苏州市食品药品监督管理局关于公布苏州市级食品安全监督抽检信息的公告（2017年第6期）'}]
