@@ -2,11 +2,12 @@ import xlrd
 import openpyxl
 import json
 import os
-import pandas as pd
 
 
 class BaseCode(object):
-    def count_list_items(self, data_list):
+
+    @classmethod
+    def count_list_items(cls, data_list):
         '''
         统计一个列表的元素出现的次数
         :param data_list: 待解析的list
@@ -26,17 +27,6 @@ class BaseCode(object):
                 new_v[v] = [k]
         return new_v
 
-    def get_excel_data_by_index(self, excel_path, **kwargs):
-        df = pd.read_excel(excel_path, **kwargs)
-        need_data = []
-        for i in range(len(df)):
-            need_data.append([{k: df.iloc[i][k]} for k in df.columns])
-        return need_data
-
-    def get_excel_data_by_iloc(self, excel_path, **kwargs):
-        df = pd.read_excel(excel_path, header=None, **kwargs)
-        return [df.iloc[i] for i in range(len(df))]
-
     def _get_file_from_dir(self, dir_path, file_list, file_type):
         for item in os.listdir(dir_path):
             now_path = os.path.join(dir_path, item)
@@ -55,15 +45,18 @@ class BaseCode(object):
         '''
         return self._get_file_from_dir(dir_path, [], file_type)
 
-    def get_data_from_json(self, json_file):
-        with open(json_file, "r", encoding="utf8")as f:
+    @classmethod
+    def get_data_from_json(cls, json_file, encoding="utf8"):
+        with open(json_file, "r", encoding=encoding)as f:
             return [json.loads(line.strip()) for line in f]
 
-    def get_data_from_txt(self, txt_file):
-        with open(txt_file, "r", encoding="utf8")as f:
+    @classmethod
+    def get_data_from_txt(cls, txt_file, encoding="utf8"):
+        with open(txt_file, "r", encoding=encoding)as f:
             return [line.strip() for line in f]
 
-    def generator_list(self, list_in, count):
+    @classmethod
+    def generator_list(cls, list_in, count):
         for i in range(count):
             num = (i % len(list_in))
             yield list_in[num]
@@ -75,7 +68,8 @@ class BaseCode(object):
             re_list.append(next(gn))
         return re_list
 
-    def from_json_build_excel(self, all_json, save_path, need_head):
+    @classmethod
+    def from_json_build_excel(cls, all_json, save_path, need_head):
         '''
         将格式化的json数据保存成excel文件
         :param all_json: [{key1:value1, key2:value2}, {key1:value1, key2:value2}, {}, {}...]
@@ -172,5 +166,5 @@ class Analysis(object):
 if __name__ == '__main__':
     ana = Analysis()
     excel_path = r'C:\Users\17337\Downloads\W020180111365835138958.xls'
-    for item in ana.excel_table_byrow(excel_path):
-        print(item)
+    for data in ana.excel_table_byrow(excel_path):
+        print(data)
