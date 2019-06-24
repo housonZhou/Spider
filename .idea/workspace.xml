@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b801df76-b150-4ae5-b8cb-d8fda6d2af6f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Food/other/template_demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,30 +13,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Food/ningxia/nx_req.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-110">
-              <caret line="75" column="24" selection-start-line="75" selection-start-column="24" selection-end-line="75" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Food/ningxia/thread_nx.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="32" column="43" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#16#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Food/other/template_demo.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="132">
@@ -45,11 +21,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Food/shanxi/sx_req.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Food/hebei/hb_req.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="122" column="59" lean-forward="true" selection-start-line="122" selection-start-column="59" selection-end-line="122" selection-end-column="59" />
+            <state relative-caret-position="334">
+              <caret line="126" lean-forward="true" selection-start-line="126" selection-end-line="126" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -57,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Food/shanxi/thread_sx.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Food/hebei/thread_hb.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+            <state relative-caret-position="76">
+              <caret line="41" column="14" lean-forward="true" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -101,6 +77,10 @@
         <option value="$PROJECT_DIR$/Food/other/template_demo.py" />
         <option value="$PROJECT_DIR$/Food/shanxi/thread_sx.py" />
         <option value="$PROJECT_DIR$/Food/shanxi/sx_req.py" />
+        <option value="$PROJECT_DIR$/Food/shan_xi/thread_sx.py" />
+        <option value="$PROJECT_DIR$/Food/shan_xi/sx_req.py" />
+        <option value="$PROJECT_DIR$/Food/hebei/thread_hb.py" />
+        <option value="$PROJECT_DIR$/Food/hebei/hb_req.py" />
       </list>
     </option>
   </component>
@@ -115,7 +95,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -132,30 +111,13 @@
               <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
               <item name="Spider" type="462c0819:PsiDirectoryNode" />
               <item name="Food" type="462c0819:PsiDirectoryNode" />
-              <item name="shanxi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Spider" type="462c0819:PsiDirectoryNode" />
-              <item name="Food" type="462c0819:PsiDirectoryNode" />
-              <item name="sichuang" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Spider" type="462c0819:PsiDirectoryNode" />
-              <item name="Food" type="462c0819:PsiDirectoryNode" />
-              <item name="suzhou" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Spider" type="462c0819:PsiDirectoryNode" />
-              <item name="Food" type="462c0819:PsiDirectoryNode" />
-              <item name="tianjin" type="462c0819:PsiDirectoryNode" />
+              <item name="hebei" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -178,8 +140,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.thread_sx">
-    <configuration name="jx_req" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.thread_hb">
+    <configuration name="hb_req" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Spider" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -187,12 +149,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/ningxia" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/hebei" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\17337\houszhou\code\PingAn\Spider\Food\ningxia\nx_req.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/hebei/hb_req.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -201,7 +163,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="nx_req" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="sx_req (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Spider" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -209,12 +171,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/ningxia" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/shan_xi" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/ningxia/nx_req.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/shan_xi/sx_req.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -245,7 +207,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="thread_nx" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="thread_hb" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Spider" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -253,12 +215,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/ningxia" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/hebei" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/ningxia/thread_nx.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/hebei/thread_hb.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -291,11 +253,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.thread_hb" />
+        <item itemvalue="Python.hb_req" />
+        <item itemvalue="Python.sx_req (1)" />
         <item itemvalue="Python.thread_sx" />
         <item itemvalue="Python.sx_req" />
-        <item itemvalue="Python.thread_nx" />
-        <item itemvalue="Python.nx_req" />
-        <item itemvalue="Python.jx_req" />
       </list>
     </recent_temporary>
   </component>
@@ -311,23 +273,23 @@
       <updated>1561001883504</updated>
       <workItem from="1561001886543" duration="12981000" />
       <workItem from="1561079981670" duration="9262000" />
-      <workItem from="1561172130143" duration="8906000" />
+      <workItem from="1561172130143" duration="10557000" />
+      <workItem from="1561339588220" duration="4207000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31149000" />
+    <option name="totallyTimeSpent" value="37007000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="735" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15683104" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15925626" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3548922" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37147596" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -349,6 +311,7 @@
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Spider$sx_req__1_.coverage" NAME="sx_req (1) Coverage Results" MODIFIED="1561191836363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/shan_xi" />
     <SUITE FILE_PATH="coverage/Spider$sz_req.coverage" NAME="sz_req Coverage Results" MODIFIED="1561026133560" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/suzhou" />
     <SUITE FILE_PATH="coverage/Spider$thread_sz.coverage" NAME="thread_sz Coverage Results" MODIFIED="1561026415231" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/suzhou" />
     <SUITE FILE_PATH="coverage/Spider$sx_req.coverage" NAME="sx_req Coverage Results" MODIFIED="1561187942723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/shanxi" />
@@ -357,6 +320,8 @@
     <SUITE FILE_PATH="coverage/Spider$nx_req.coverage" NAME="nx_req Coverage Results" MODIFIED="1561096957121" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/ningxia" />
     <SUITE FILE_PATH="coverage/Spider$thread_nx.coverage" NAME="thread_nx Coverage Results" MODIFIED="1561097410895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/ningxia" />
     <SUITE FILE_PATH="coverage/Spider$thread_sx.coverage" NAME="thread_sx Coverage Results" MODIFIED="1561188684611" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/shanxi" />
+    <SUITE FILE_PATH="coverage/Spider$hb_req.coverage" NAME="hb_req Coverage Results" MODIFIED="1561345530451" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/hebei" />
+    <SUITE FILE_PATH="coverage/Spider$thread_hb.coverage" NAME="thread_hb Coverage Results" MODIFIED="1561345669444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/hebei" />
     <SUITE FILE_PATH="coverage/Spider$tj_req.coverage" NAME="tj_req Coverage Results" MODIFIED="1561011829369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/tianjin" />
   </component>
   <component name="editorHistoryManager">
@@ -486,7 +451,37 @@
     <entry file="file://$PROJECT_DIR$/Food/shanxi/sx_req.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
-          <caret line="122" column="59" lean-forward="true" selection-start-line="122" selection-start-column="59" selection-end-line="122" selection-end-column="59" />
+          <caret line="122" column="59" selection-start-line="122" selection-start-column="59" selection-end-line="122" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/shanxi/thread_sx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/shan_xi/thread_sx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/shan_xi/sx_req.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="77" column="25" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="25" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -500,12 +495,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Food/shanxi/thread_sx.py">
+    <entry file="file://$PROJECT_DIR$/Food/hebei/thread_hb.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+        <state relative-caret-position="76">
+          <caret line="41" column="14" lean-forward="true" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/hebei/hb_req.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="126" lean-forward="true" selection-start-line="126" selection-end-line="126" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
