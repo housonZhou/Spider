@@ -164,8 +164,8 @@ class Analysis(object):
 
 
 if __name__ == '__main__':
-    pass
-    # ana = Analysis()
-    # excel_path = r'C:\Users\17337\Downloads\W020180111365835138958.xls'
-    # for data in ana.excel_table_byrow(excel_path):
-    #     print(data)
+    # pass
+    ana = Analysis()
+    excel_path = r'C:\Users\17337\Downloads\29153505zi17 (1).xls'
+    for data in ana.excel_table_byrow(excel_path):
+        print(data)
