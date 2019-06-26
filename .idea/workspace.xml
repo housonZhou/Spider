@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b801df76-b150-4ae5-b8cb-d8fda6d2af6f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/tools/base_code.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/base_code.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Food/zhejiang/thread_zj.py" beforeDir="false" afterPath="$PROJECT_DIR$/Food/zhejiang/thread_zj.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Food/zhejiang/zj_req.py" beforeDir="false" afterPath="$PROJECT_DIR$/Food/zhejiang/zj_req.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,45 +15,24 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Food/other/template_demo.py">
+        <entry file="file://$PROJECT_DIR$/Food/ChinaFood/cf_req.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="6" column="42" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Food/heilongjiang_spyp/hlgjg_req.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="130" column="31" lean-forward="true" selection-start-line="130" selection-start-column="31" selection-end-line="130" selection-end-column="31" />
+            <state relative-caret-position="-550">
+              <caret line="70" column="37" lean-forward="true" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#0#9#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Food/heilongjiang_spyp/thread_hlgjg.py">
+        <entry file="file://$PROJECT_DIR$/Food/ChinaFood/thread_cf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="45" column="27" lean-forward="true" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
+            <state relative-caret-position="-405">
+              <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tools/base_code.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="168" column="21" selection-start-line="168" selection-start-column="21" selection-end-line="168" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -98,22 +79,28 @@
         <option value="$PROJECT_DIR$/Food/heilongjiang_jg/hlgjg_req.py" />
         <option value="$PROJECT_DIR$/Food/heilongjiang_jg/thread_hlgjg.py" />
         <option value="$PROJECT_DIR$/Food/heilongjiang_spyp/hlgjg_req.py" />
-        <option value="$PROJECT_DIR$/Food/heilongjiang_spyp/thread_hlgjg.py" />
         <option value="$PROJECT_DIR$/tools/base_code.py" />
+        <option value="$PROJECT_DIR$/Food/heilongjiang_spyp/thread_hlgjg.py" />
+        <option value="$PROJECT_DIR$/Food/zhejiang/thread_zj.py" />
+        <option value="$PROJECT_DIR$/Food/zhejiang/zj_req.py" />
+        <option value="$PROJECT_DIR$/Food/ChinaFood/thread_zj.py" />
+        <option value="$PROJECT_DIR$/Food/ChinaFood/thread_cf.py" />
+        <option value="$PROJECT_DIR$/Food/ChinaFood/cf_req.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="84" />
-    <option name="y" value="24" />
-    <option name="width" value="1752" />
-    <option name="height" value="1032" />
+    <option name="x" value="2232" />
+    <option name="y" value="145" />
+    <option name="width" value="960" />
+    <option name="height" value="518" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -121,27 +108,10 @@
               <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
               <item name="Spider" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Spider" type="462c0819:PsiDirectoryNode" />
-              <item name="Food" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Spider" type="462c0819:PsiDirectoryNode" />
-              <item name="Food" type="462c0819:PsiDirectoryNode" />
-              <item name="heilongjiang_spyp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Spider" type="462c0819:PsiDirectoryNode" />
-              <item name="tools" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -150,7 +120,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -164,7 +134,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.base_code">
+  <component name="RunManager" selected="Python.thread_cf">
     <configuration name="base_code" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Spider" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -187,7 +157,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="hlgjg_req (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="cf_req" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Spider" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -195,12 +165,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/heilongjiang_spyp" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/ChinaFood" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/heilongjiang_spyp/hlgjg_req.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/ChinaFood/cf_req.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -209,7 +179,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="hlgjg_req" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="thread_cf" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Spider" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -217,12 +187,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/heilongjiang_jg" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/ChinaFood" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/heilongjiang_jg/hlgjg_req.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/ChinaFood/thread_cf.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -231,7 +201,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="thread_hlgjg (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="thread_zj" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Spider" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -239,12 +209,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/heilongjiang_spyp" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/zhejiang" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/heilongjiang_spyp/thread_hlgjg.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/zhejiang/thread_zj.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -253,7 +223,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="thread_hlgjg" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="zj_req" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Spider" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -261,12 +231,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/heilongjiang_jg" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Food/zhejiang" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/heilongjiang_jg/thread_hlgjg.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Food/zhejiang/zj_req.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -277,11 +247,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.thread_cf" />
+        <item itemvalue="Python.cf_req" />
+        <item itemvalue="Python.thread_zj" />
+        <item itemvalue="Python.zj_req" />
         <item itemvalue="Python.base_code" />
-        <item itemvalue="Python.thread_hlgjg (1)" />
-        <item itemvalue="Python.hlgjg_req (1)" />
-        <item itemvalue="Python.thread_hlgjg" />
-        <item itemvalue="Python.hlgjg_req" />
       </list>
     </recent_temporary>
   </component>
@@ -298,32 +268,44 @@
       <workItem from="1561001886543" duration="12981000" />
       <workItem from="1561079981670" duration="9262000" />
       <workItem from="1561172130143" duration="10557000" />
-      <workItem from="1561339588220" duration="16634000" />
+      <workItem from="1561339588220" duration="17380000" />
+      <workItem from="1561433650035" duration="16491000" />
+      <workItem from="1561465659188" duration="5760000" />
+      <workItem from="1561511830412" duration="14573000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49434000" />
+    <option name="totallyTimeSpent" value="87004000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="735" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15925626" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.07249467" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.5240464" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.43669528" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
+      <window_info anchor="bottom" id="TODO" order="7" weight="0.329718" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3283582" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32832617" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -339,6 +321,8 @@
     <SUITE FILE_PATH="coverage/Spider$thread_sz.coverage" NAME="thread_sz Coverage Results" MODIFIED="1561026415231" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/suzhou" />
     <SUITE FILE_PATH="coverage/Spider$thread_tj.coverage" NAME="thread_tj Coverage Results" MODIFIED="1561014892666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/tianjin" />
     <SUITE FILE_PATH="coverage/Spider$jx_req.coverage" NAME="jx_req Coverage Results" MODIFIED="1561089109965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/ningxia" />
+    <SUITE FILE_PATH="coverage/Spider$zj_req.coverage" NAME="zj_req Coverage Results" MODIFIED="1561444673077" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/zhejiang" />
+    <SUITE FILE_PATH="coverage/Spider$cf_req.coverage" NAME="cf_req Coverage Results" MODIFIED="1561515890852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/ChinaFood" />
     <SUITE FILE_PATH="coverage/Spider$thread_sx.coverage" NAME="thread_sx Coverage Results" MODIFIED="1561188684611" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/shanxi" />
     <SUITE FILE_PATH="coverage/Spider$hb_req.coverage" NAME="hb_req Coverage Results" MODIFIED="1561345530451" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/hebei" />
     <SUITE FILE_PATH="coverage/Spider$hn_req.coverage" NAME="hn_req Coverage Results" MODIFIED="1561355792254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/hainan" />
@@ -348,12 +332,14 @@
     <SUITE FILE_PATH="coverage/Spider$sx_req.coverage" NAME="sx_req Coverage Results" MODIFIED="1561187942723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/shanxi" />
     <SUITE FILE_PATH="coverage/Spider$hlgjg_req.coverage" NAME="hlgjg_req Coverage Results" MODIFIED="1561361431122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/heilongjiang_jg" />
     <SUITE FILE_PATH="coverage/Spider$nx_req.coverage" NAME="nx_req Coverage Results" MODIFIED="1561096957121" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/ningxia" />
+    <SUITE FILE_PATH="coverage/Spider$thread_zj.coverage" NAME="thread_zj Coverage Results" MODIFIED="1561444829628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/zhejiang" />
     <SUITE FILE_PATH="coverage/Spider$thread_nx.coverage" NAME="thread_nx Coverage Results" MODIFIED="1561097410895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/ningxia" />
     <SUITE FILE_PATH="coverage/Spider$base_code.coverage" NAME="base_code Coverage Results" MODIFIED="1561364367408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
     <SUITE FILE_PATH="coverage/Spider$thread_hn.coverage" NAME="thread_hn Coverage Results" MODIFIED="1561356925601" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/hainan" />
     <SUITE FILE_PATH="coverage/Spider$thread_hlgjg.coverage" NAME="thread_hlgjg Coverage Results" MODIFIED="1561361793724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/heilongjiang_jg" />
     <SUITE FILE_PATH="coverage/Spider$thread_hb.coverage" NAME="thread_hb Coverage Results" MODIFIED="1561345669444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/hebei" />
     <SUITE FILE_PATH="coverage/Spider$hlgjg_req__1_.coverage" NAME="hlgjg_req (1) Coverage Results" MODIFIED="1561363809883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/heilongjiang_spyp" />
+    <SUITE FILE_PATH="coverage/Spider$thread_cf.coverage" NAME="thread_cf Coverage Results" MODIFIED="1561532291947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/ChinaFood" />
     <SUITE FILE_PATH="coverage/Spider$thread_hlgjg__1_.coverage" NAME="thread_hlgjg (1) Coverage Results" MODIFIED="1561363971144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/heilongjiang_spyp" />
   </component>
   <component name="editorHistoryManager">
@@ -500,33 +486,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Food/shan_xi/thread_sx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Food/shan_xi/sx_req.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="77" column="25" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/1315527576/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="743">
-          <caret line="2572" column="8" selection-start-line="2572" selection-start-column="8" selection-end-line="2572" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/shan_xi/thread_sx.py" />
+    <entry file="file://$PROJECT_DIR$/Food/shan_xi/sx_req.py" />
     <entry file="file://$PROJECT_DIR$/Food/hebei/thread_hb.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
@@ -557,16 +518,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Food/hainan/hn_req.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-572">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Food/heilongjiang_jg/thread_hlgjg.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
@@ -587,26 +538,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Food/other/template_demo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="42" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Food/heilongjiang_spyp/hlgjg_req.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="130" column="31" lean-forward="true" selection-start-line="130" selection-start-column="31" selection-end-line="130" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tools/base_code.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
+        <state relative-caret-position="3630">
           <caret line="168" column="21" selection-start-line="168" selection-start-column="21" selection-end-line="168" selection-end-column="21" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
@@ -616,8 +550,90 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Food/heilongjiang_spyp/thread_hlgjg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="45" column="27" lean-forward="true" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
+        <state relative-caret-position="312">
+          <caret line="43" column="14" selection-start-line="43" selection-start-column="14" selection-end-line="43" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/heilongjiang_spyp/hlgjg_req.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="130" column="31" selection-start-line="130" selection-start-column="31" selection-end-line="130" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/other/template_demo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="42" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/hainan/hn_req.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="88" column="30" lean-forward="true" selection-start-line="88" selection-start-column="30" selection-end-line="88" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/zhejiang/thread_zj.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="38" column="18" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/zhejiang/zj_req.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/ChinaFood/thread_zj.py" />
+    <entry file="file://$PROJECT_DIR$/Food/ChinaFood/page_code.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/1315527576/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="490" column="4" selection-start-line="490" selection-start-column="4" selection-end-line="490" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/ChinaFood/cf_req.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-550">
+          <caret line="70" column="37" lean-forward="true" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Food/ChinaFood/thread_cf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-405">
+          <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>

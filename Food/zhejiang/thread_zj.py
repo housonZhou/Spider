@@ -1,6 +1,6 @@
 import threading
 from queue import Queue
-from zj_req import *
+from Food.zhejiang.zj_req import *
 
 
 def start(time_map, q):
@@ -31,7 +31,7 @@ def consumer(q):
 
 if __name__ == '__main__':
     q_link = Queue()
-    save_dir = r'F:\PingAn_data\Food\zhejiang\0619'
+    save_dir = r'C:\Users\17337\houszhou\data\SpiderData\Food\zhejiang\0625'
     time_end = ''
     th_num = 4
     th = threading.Thread(target=start, args=(time_end, q_link))

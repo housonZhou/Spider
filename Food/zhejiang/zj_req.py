@@ -72,11 +72,11 @@ def page_detail(url, link_time):
             try:
                 link = link_item.xpath('@href')[0]
                 file_name = link_item.xpath('string(.)')
-                print(link, file_name)
                 link_type = link.split('.')[-1]
                 if (link_type not in need_type) or ('合格' not in file_name):
                     continue
-                down_name = "{}{}@{}.{}".format(page_title, file_name, link_time, link_type)
+                tag = '_不合格信息_' if '不合格' in file_name else '_合格信息_'
+                down_name = "{}{}{}@{}.{}".format(page_title, file_name, tag, link_time, link_type)
                 data_list.append({'url': 'http://zjamr.zj.gov.cn{}'.format(link), 'name': down_name,
                                   'page_url': url, 'page_title': page_title})
             except:
@@ -89,13 +89,17 @@ def page_detail(url, link_time):
 
 
 def down_file(url, save_dir, file_name, data=None):
-    with open(os.path.join(save_dir, "{}".format(file_name)), 'wb')as f:
-        file_data = base_req(url, data=data)
-        if file_data:
-            f.write(file_data.content)
-            print("文件下载成功")
-        else:
-            print("下载失败： url:{}\nfile name:{}".format(url, file_name))
+    try:
+        with open(os.path.join(save_dir, "{}".format(file_name)), 'wb')as f:
+            file_data = base_req(url, data=data)
+            if file_data:
+                f.write(file_data.content)
+                print("文件下载成功")
+            else:
+                print("下载失败： url:{}\nfile name:{}".format(url, file_name))
+    except:
+        print("下载失败： url:{}\nfile name:{}".format(url, file_name))
+        traceback.print_exc()
 
 
 def demo():
@@ -106,13 +110,14 @@ def demo():
     # print(a)
     # print(len(a))
 
-    # url = "http://zjamr.zj.gov.cn/HTML/gggs/201906/05e5d4cb-425e-49a4-8109-0ce64ce469c4.html"
-    # data = page_detail(url, "")
-    # print(data)
+    url = "http://zjamr.zj.gov.cn/HTML/gggs/201906/05e5d4cb-425e-49a4-8109-0ce64ce469c4.html"
+    data = page_detail(url, "")
+    print(data)
 
-    url = "http://www.jiangxi.gov.cn/uploadFiles/2019/06/食品抽检不合格-20190604090630.xls"
-    save_dir = r"F:\PingAn_data\Food\zhejiang\0619"
-    down_file(url, save_dir, "test.xls")
+    # url = "http://www.jiangxi.gov.cn/uploadFiles/2019/06/食品抽检不合格-20190604090630.xls"
+    # save_dir = r"F:\PingAn_data\Food\zhejiang\0619"
+    # down_file(url, save_dir, "test.xls")
+
 
 if __name__ == '__main__':
     demo()
