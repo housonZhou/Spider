@@ -21,8 +21,8 @@ class Crawl(object):
         self.chrome_options.add_argument('--headless')
         self.chrome_options.add_argument('--disable-gpu')
         self._driver = webdriver.Chrome(chrome_options=self.chrome_options)
-        threading.Thread(target=self.watch_cookies).start()  # 开启线程持续验证cookie是否失效
         self.watch = True  # 是否验证cookies，用于爬虫结束时关闭线程
+        threading.Thread(target=self.watch_cookies).start()  # 开启线程持续验证cookie是否失效
 
     def get_new_cookies(self):  # 用selenium获取新cookies
         print('get cookies')
