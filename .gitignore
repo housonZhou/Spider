@@ -2,4 +2,6 @@
 *.log
 *.zip
 *.xml
+*.json
+*.txt
 .idea/*
