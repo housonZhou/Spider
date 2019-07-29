@@ -24,7 +24,7 @@ class GifShow(object):
             if swipe_num == 0:
                 break
             print('touch move')
-            self.driver.swipe(342, 1772, 346, 275, 200)
+            self.driver.swipe(342, 1172, 346, 275, 200)
             time.sleep(1.5)
             if swipe_num:
                 swipe_num -= 1
