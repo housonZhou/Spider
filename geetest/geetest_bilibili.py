@@ -11,7 +11,7 @@ THRESHOLD = 60
 LEFT = 60
 BORDER = 6
 USERNAME: str = '1733776802@qq.com'  # b站账号、邮箱
-PASSWORD: str = 'zhs314159265'  # 密码
+PASSWORD: str = ''  # 密码
 
 
 class CrackGeeTest:
