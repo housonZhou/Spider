@@ -17,6 +17,7 @@ class ChinaNewsSpider(scrapy.Spider):
         for word in SEARCH_LIST:
             data = POST_DATA.copy()
             data['q'] = word
+            print(data)
             yield scrapy.FormRequest(self.base_url, method='POST', formdata=data, callback=self.parse, meta={'q': word})
 
     def parse(self, response: scrapy.http.Response):
@@ -28,7 +29,6 @@ class ChinaNewsSpider(scrapy.Spider):
             time_map = re.findall('\d{4}-\d{2}-\d{2}', time_list[i])
             if time_map and time_map[0] > END_SEARCH_TIME:
                 yield scrapy.Request(page_link[i], callback=self.page_detail, meta={'q': q})
-                pass
             elif time_map and time_map[0] <= END_SEARCH_TIME:
                 have_next = False
                 break
