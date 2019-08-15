@@ -26,9 +26,9 @@ class WeChatSpider:
         self.cookies = {}
         self.token = ''
         self.name = info_msg.get('name')
-        self.fake_id = info_msg.get('fakeid')
+        self.fake_id = info_msg.get('fakeid')  # 公众号唯一id，需提前获知
         self.url = 'https://mp.weixin.qq.com/cgi-bin/appmsg?token={token}&lang=zh_CN&f=json&ajax=1&' \
-                   'random=0.8290188508387306&action=list_ex&begin={begin}&count=5&query=&fakeid={id}&type=9'
+                   'random=0.8290188508387306&action=list_ex&begin={begin}&count=5&query={flag}&fakeid={id}&type=9'
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
                           'Chrome/75.0.3770.142 Safari/537.36',
@@ -65,13 +65,15 @@ class WeChatSpider:
         """
         查询公众号,循环抓取所有文章
         """
-        all_count = self.main().get('all')
+        all_count = self.main(flag='*').get('all')
         if all_count > 10:
             page = math.floor(all_count / 10)
+            if page > 199:  # 不超过200页
+                page = 199
             for i in range(page):
                 time.sleep(SLEEP_TIME)
                 print('name: {}, index: {}, all: {}'.format(self.name, i + 1, page))
-                self.main(begin=(i + 1) * 10)
+                self.main(begin=(i + 1) * 10, flag='*')
         elif all_count == 0:
             error_data = {'data': {'name': self.name, 'fakeid': self.fake_id, 'all': all_count},
                           'error': '公众号数据过少', 'msg': 'run error'}
@@ -93,14 +95,15 @@ class WeChatSpider:
             all_count += this_count
         print('{}共抓取: {}条数据'.format(self.name, all_count))
 
-    def main(self, begin=0, retry=10):
+    def main(self, begin=0, retry=10, flag=''):
         """
         查询公众号文章,并保存数据
         :param begin: 查询起点
-        param retry: 重试次数
+        :param retry: 重试次数
+        :param flag: ''为按时间顺序搜索文章，'*'为搜索所有文章（但时间顺序不保证）
         :return: 公众号文章总数
         """
-        url = self.url.format(begin=begin, id=self.fake_id, token=self.token)
+        url = self.url.format(begin=begin, id=self.fake_id, token=self.token, flag=flag)
         try:
             response = self.get(url)
             data = self.list_detail(response, url)
@@ -112,7 +115,7 @@ class WeChatSpider:
                     time.sleep(SLEEP_TIME)
                 elif data.get('msg', '') == 'cookies失效':
                     self.update_cookies()
-                return self.main(begin=begin, retry=retry - 1)
+                return self.main(begin=begin, retry=retry - 1, flag=flag)
             else:
                 return {'all': 0, 'this': 0, 'code': -2, 'msg': '重试过多'}
         except:
@@ -125,8 +128,7 @@ class WeChatSpider:
         print('正在重新登陆，更新cookies')
         wl = WeChatLogin()
         login_data = wl.login()
-        self.token = login_data.get('token')
-        self.cookies = login_data.get('cookies')
+        self.set_config(login_data)
 
     def get(self, url, **kwargs):
         response = requests.get(url, headers=self.headers, cookies=self.cookies, verify=False, **kwargs)
@@ -172,10 +174,10 @@ class WeChatSpider:
         aid = item.get('aid')
         title = item.get('title')
         page_url = item.get('link')
-        digest = item.get('digest')
+        digest = item.get('digest')  # 摘要
         create_time = self.change_time(item.get('create_time', ''))
         update_time = self.change_time(item.get('update_time', ''))
-        content = self.page_content(page_url)
+        content = self.page_content(page_url)  # 文本内容
         if not content:
             error_data = {'data': page_url, 'error': 'page not content data', 'msg': 'page error'}
             self._write(self.fail, error_data)
@@ -221,6 +223,10 @@ class WeChatLogin:
         self.png = r'C:\Users\17337\houszhou\data\SpiderData\微信公众号\登陆二维码.png'
 
     def login(self):
+        """
+        须提供微信公众号账号密码登陆，并根据提示用手机扫码完成登陆
+        :return: 登陆后的cookies和token
+        """
         self.browser.get(self.url)
         email = self.wait.until(EC.presence_of_element_located((By.NAME, 'account')))
         email.send_keys(self.account)
@@ -231,8 +237,7 @@ class WeChatLogin:
         btn = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'btn_login')))
         btn.click()
         while True:
-            now_url = self.browser.current_url
-            token = re.findall('token=(\d+)', now_url)
+            token = re.findall('token=(\d+)', self.browser.current_url)
             if token:
                 break
             else:

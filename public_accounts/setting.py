@@ -36,7 +36,7 @@ SEARCH_LIST = [
     # {'fakeid': 'MzA4MzA2MDg4OA==', 'name': '深圳吃喝玩乐'}
 ]
 
-# time
+# 休眠时长
 SLEEP_TIME = 10
 
 # token
@@ -67,6 +67,6 @@ COOKIES = {
     'ts_uid': '6964964951'
 }
 
-#
+# 微信公众号账号密码
 ACCOUNT = '1733776802@qq.com'
 PASSWORD = ''
