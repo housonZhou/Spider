@@ -10,8 +10,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from public_accounts.setting import SAVE_DIR, LOG_DIR, SEARCH_LIST, COOKIES, TOKEN, SLEEP_TIME, ACCOUNT, PASSWORD
+from public_accounts.setting import SAVE_DIR, LOG_DIR, SEARCH_LIST, COOKIES, TOKEN, \
+    SLEEP_TIME, ACCOUNT, PASSWORD, QQ_KET, SCREENSHOT_PATH
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from public_accounts.mail import QQEmail
 
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -220,7 +222,8 @@ class WeChatLogin:
         self.password = PASSWORD
         self.browser = webdriver.Chrome()
         self.wait = WebDriverWait(self.browser, 20)
-        self.png = r'C:\Users\17337\houszhou\data\SpiderData\微信公众号\登陆二维码.png'
+        self.png = SCREENSHOT_PATH
+        self.is_send = False
 
     def login(self):
         """
@@ -241,9 +244,21 @@ class WeChatLogin:
             if token:
                 break
             else:
+                self.send_shot()
                 print('请扫描二维码登陆')
                 time.sleep(5)
         return {'cookies': {i.get('name'): i.get('value') for i in self.browser.get_cookies()}, 'token': token[0]}
+
+    def send_shot(self):
+        if self.is_send:
+            return
+        time.sleep(5)
+        self.browser.get_screenshot_as_file(self.png)
+        time.sleep(3)
+        qq = QQEmail(ACCOUNT, ACCOUNT, QQ_KET)
+        qq.insert_img(self.png)
+        qq.send()
+        self.is_send = True
 
     def __del__(self):
         self.browser.quit()

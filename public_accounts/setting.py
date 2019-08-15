@@ -1,47 +1,21 @@
 # 数据保存文件夹
 SAVE_DIR = r'C:\Users\17337\houszhou\data\SpiderData\微信公众号\data'
-
 # 日志
 LOG_DIR = r'C:\Users\17337\houszhou\data\SpiderData\微信公众号\log'
-
-SEARCH_LIST = [
-    # {'fakeid': 'MjM5MjE5MjA0MA==', 'name': '深圳之窗'},
-    # {'fakeid': 'MzAxNTg3OTUzMw==', 'name': '深圳之声'},
-    # {'fakeid': 'MzA5MjE1NDE2Mw==', 'name': '每日深圳'},
-    {'fakeid': 'MjM5ODUzOTY5Mg==', 'name': '搜狐焦点深圳'},
-    {'fakeid': 'MzIxMTEyODA2OA==', 'name': '全深圳'},
-    {'fakeid': 'MzA3NjU5MTM0NQ==', 'name': '吃喝玩乐在深圳'},
-    # {'fakeid': 'MzA5MTIyNzcwOA==', 'name': '深圳生活'},
-    # {'fakeid': 'MzA3ODEwOTk2Ng==', 'name': '深圳生活圈'},
-    # {'fakeid': 'MzA5NTMzODAzMQ==', 'name': '深圳微时光'},
-    # {'fakeid': 'MzAxNzc2NjE5Mg==', 'name': '深圳掌上生活'},
-    # {'fakeid': 'MzA5OTcxNzg4Mw==', 'name': '深圳潮人生活'},
-    # {'fakeid': 'MzA4NTczOTMzMQ==', 'name': '深圳大件事'},
-    # {'fakeid': 'MzUzMjY3NTk0Ng==', 'name': '深圳潮事儿'},
-    # {'fakeid': 'MzA4NTU2MDY1NA==', 'name': '深圳优生活'},
-    # {'fakeid': 'MzA3NDE4MTkyOA==', 'name': '一个深圳'},
-    # {'fakeid': 'MzI1OTA5Mzc4Mw==', 'name': '深圳公安发布'},
-    # {'fakeid': 'MjM5MDA2MDMwMA==', 'name': '深圳发布'},
-    # {'fakeid': 'MzIyNzI1NDI4Nw==', 'name': '十分深圳'},
-    # {'fakeid': 'MzIxNDA0MTExMg==', 'name': '深圳卫计委'},
-    # {'fakeid': 'MzA3NDMzNTQ4Mw==', 'name': '深圳交警权威发布'},
-    # {'fakeid': 'MjM5NDA4NzM0MQ==', 'name': '深圳第一'},
-    # {'fakeid': 'MjM5MTk5MDQ2MQ==', 'name': '深圳同城'},
-    # {'fakeid': 'MzIzOTcyNDEzMg==', 'name': '深圳商报'},
-    # {'fakeid': 'MjM5MTAzODc2MA==', 'name': '深圳特区报'},
-    # {'fakeid': 'MzAxMDU2MDM3OA==', 'name': '深圳潮流圈'},
-    # {'fakeid': 'MzA4OTQ5NTk2Mw==', 'name': '深圳本地宝'},
-    # {'fakeid': 'MzI3MDAyMTUzOA==', 'name': '深圳全接触'},
-    # {'fakeid': 'Mzg2ODEzMjA0OA==', 'name': '深圳地铁'},
-    # {'fakeid': 'MzA4MzA2MDg4OA==', 'name': '深圳吃喝玩乐'}
-]
+# 截图保存路径
+SCREENSHOT_PATH = r'C:\Users\17337\houszhou\data\SpiderData\微信公众号\登陆二维码.png'
 
 # 休眠时长
 SLEEP_TIME = 10
 
+# 微信公众号账号密码
+ACCOUNT = '1733776802@qq.com'
+PASSWORD = ''
+# qq邮箱授权码
+QQ_KET = ''
+
 # token
 TOKEN = '1020048366'  # 1020048366
-
 # 微信公众号cookies
 COOKIES = {
     'noticeLoginFlag': '1',
@@ -66,7 +40,34 @@ COOKIES = {
     'pgv_pvid': '4297785200',
     'ts_uid': '6964964951'
 }
-
-# 微信公众号账号密码
-ACCOUNT = '1733776802@qq.com'
-PASSWORD = ''
+SEARCH_LIST = [
+    {'fakeid': 'MjM5MjE5MjA0MA==', 'name': '深圳之窗'},
+    {'fakeid': 'MzAxNTg3OTUzMw==', 'name': '深圳之声'},
+    {'fakeid': 'MzA5MjE1NDE2Mw==', 'name': '每日深圳'},
+    {'fakeid': 'MjM5ODUzOTY5Mg==', 'name': '搜狐焦点深圳'},
+    {'fakeid': 'MzIxMTEyODA2OA==', 'name': '全深圳'},
+    {'fakeid': 'MzA3NjU5MTM0NQ==', 'name': '吃喝玩乐在深圳'},
+    {'fakeid': 'MzA5MTIyNzcwOA==', 'name': '深圳生活'},
+    {'fakeid': 'MzA3ODEwOTk2Ng==', 'name': '深圳生活圈'},
+    {'fakeid': 'MzA5NTMzODAzMQ==', 'name': '深圳微时光'},
+    {'fakeid': 'MzAxNzc2NjE5Mg==', 'name': '深圳掌上生活'},
+    {'fakeid': 'MzA5OTcxNzg4Mw==', 'name': '深圳潮人生活'},
+    {'fakeid': 'MzA4NTczOTMzMQ==', 'name': '深圳大件事'},
+    {'fakeid': 'MzUzMjY3NTk0Ng==', 'name': '深圳潮事儿'},
+    {'fakeid': 'MzA4NTU2MDY1NA==', 'name': '深圳优生活'},
+    {'fakeid': 'MzA3NDE4MTkyOA==', 'name': '一个深圳'},
+    {'fakeid': 'MzI1OTA5Mzc4Mw==', 'name': '深圳公安发布'},
+    {'fakeid': 'MjM5MDA2MDMwMA==', 'name': '深圳发布'},
+    {'fakeid': 'MzIyNzI1NDI4Nw==', 'name': '十分深圳'},
+    {'fakeid': 'MzIxNDA0MTExMg==', 'name': '深圳卫计委'},
+    {'fakeid': 'MzA3NDMzNTQ4Mw==', 'name': '深圳交警权威发布'},
+    {'fakeid': 'MjM5NDA4NzM0MQ==', 'name': '深圳第一'},
+    {'fakeid': 'MjM5MTk5MDQ2MQ==', 'name': '深圳同城'},
+    {'fakeid': 'MzIzOTcyNDEzMg==', 'name': '深圳商报'},
+    {'fakeid': 'MjM5MTAzODc2MA==', 'name': '深圳特区报'},
+    {'fakeid': 'MzAxMDU2MDM3OA==', 'name': '深圳潮流圈'},
+    {'fakeid': 'MzA4OTQ5NTk2Mw==', 'name': '深圳本地宝'},
+    {'fakeid': 'MzI3MDAyMTUzOA==', 'name': '深圳全接触'},
+    {'fakeid': 'Mzg2ODEzMjA0OA==', 'name': '深圳地铁'},
+    {'fakeid': 'MzA4MzA2MDg4OA==', 'name': '深圳吃喝玩乐'}
+]
