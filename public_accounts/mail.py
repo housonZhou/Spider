@@ -48,7 +48,7 @@ def _format_addr(s):
 if __name__ == '__main__':
     img = r'C:\Users\17337\houszhou\data\SpiderData\微信公众号\登陆二维码.png'
     account = '1733776802@qq.com'
-    key = 'qetlchwvrhbcfagi'
+    key = ''
     mail = QQEmail(account, account, key)
     mail.insert_img(img)
     mail.send()
