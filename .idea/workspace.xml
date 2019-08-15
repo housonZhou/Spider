@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b801df76-b150-4ae5-b8cb-d8fda6d2af6f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/policy/GuanzhouGov/GuanzhouGov/pipelines.py" beforeDir="false" afterPath="$PROJECT_DIR$/policy/GuanzhouGov/GuanzhouGov/pipelines.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/policy/GuanzhouGov/GuanzhouGov/spiders/guanzhou.py" beforeDir="false" afterPath="$PROJECT_DIR$/policy/GuanzhouGov/GuanzhouGov/spiders/guanzhou.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/policy/GuanzhouGov/scrapy.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/policy/GuanzhouGov/scrapy.cfg" afterDir="false" />
-    </list>
+    <list default="true" id="b801df76-b150-4ae5-b8cb-d8fda6d2af6f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,11 +10,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/policy/GuanzhouGov/scrapy.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="10" column="21" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="21" />
+            <state relative-caret-position="176">
+              <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -28,19 +23,7 @@
         <entry file="file://$PROJECT_DIR$/policy/GuanzhouGov/start.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="66">
-              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/policy/invest_beijing/crawl_beijing.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-164">
-              <caret line="49" column="66" selection-start-line="49" selection-start-column="66" selection-end-line="49" selection-end-column="66" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -57,11 +40,46 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/policy/GuanzhouGov/GuanzhouGov/spiders/guanzhou.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="154">
+              <caret line="7" column="21" lean-forward="true" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public_accounts/wechat_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1562">
+              <caret line="111" column="14" lean-forward="true" selection-start-line="111" selection-start-column="14" selection-end-line="111" selection-end-column="14" />
+              <folding>
+                <element signature="e#0#30#0" expanded="true" />
+                <element signature="e#270#1262#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public_accounts/wechat.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="268">
+              <caret line="199" column="61" lean-forward="true" selection-start-line="199" selection-start-column="61" selection-end-line="199" selection-end-column="61" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#1929#2507#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public_accounts/setting.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="562">
+              <caret line="70" column="29" lean-forward="true" selection-start-line="70" selection-start-column="29" selection-end-line="70" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -84,7 +102,7 @@
         <entry file="file://$PROJECT_DIR$/policy/GuanzhouGov/GuanzhouGov/pipelines.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="44">
-              <caret line="2" column="9" lean-forward="true" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+              <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -107,6 +125,8 @@
       <find>funv</find>
       <find>func</find>
       <find>ChinadailyDownloaderMiddleware</find>
+      <find>response no data</find>
+      <find>pgv_si</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -115,9 +135,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mitm/gifshow/addons_test.py" />
-        <option value="$PROJECT_DIR$/mitm/toutiao/appium4toutiao.py" />
-        <option value="$PROJECT_DIR$/geetest/geetest_bilibili.py" />
         <option value="$PROJECT_DIR$/mitm/toutiao/load_json.py" />
         <option value="$PROJECT_DIR$/mitm/toutiao/QQAddons.py" />
         <option value="$PROJECT_DIR$/traffic_sz/chinadaily/chinadaily/spiders/daily.py" />
@@ -166,6 +183,9 @@
         <option value="$PROJECT_DIR$/policy/GuanzhouGov/scrapy.cfg" />
         <option value="$PROJECT_DIR$/policy/GuanzhouGov/GuanzhouGov/spiders/guanzhou.py" />
         <option value="$PROJECT_DIR$/policy/GuanzhouGov/GuanzhouGov/pipelines.py" />
+        <option value="$PROJECT_DIR$/public_accounts/wechat_test.py" />
+        <option value="$PROJECT_DIR$/public_accounts/wechat.py" />
+        <option value="$PROJECT_DIR$/public_accounts/setting.py" />
       </list>
     </option>
   </component>
@@ -187,44 +207,6 @@
             <path>
               <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
               <item name="Spider" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Spider" type="462c0819:PsiDirectoryNode" />
-              <item name="policy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Spider" type="462c0819:PsiDirectoryNode" />
-              <item name="policy" type="462c0819:PsiDirectoryNode" />
-              <item name="GuanzhouGov" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Spider" type="462c0819:PsiDirectoryNode" />
-              <item name="policy" type="462c0819:PsiDirectoryNode" />
-              <item name="GuanzhouGov" type="462c0819:PsiDirectoryNode" />
-              <item name="GuanzhouGov" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Spider" type="462c0819:PsiDirectoryNode" />
-              <item name="policy" type="462c0819:PsiDirectoryNode" />
-              <item name="GuanzhouGov" type="462c0819:PsiDirectoryNode" />
-              <item name="GuanzhouGov" type="462c0819:PsiDirectoryNode" />
-              <item name="spiders" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Spider" type="462c0819:PsiDirectoryNode" />
-              <item name="policy" type="462c0819:PsiDirectoryNode" />
-              <item name="invest_beijing" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Spider" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Spider" type="462c0819:PsiDirectoryNode" />
-              <item name="policy" type="462c0819:PsiDirectoryNode" />
-              <item name="ShanghaiGov" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -258,29 +240,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.start (2)">
-    <configuration name="hangzhou" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Spider" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/policy/HangzhouGov/HangzhouGov/spiders" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/policy/HangzhouGov/HangzhouGov/spiders/hangzhou.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.wechat">
     <configuration name="start (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Spider" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -347,7 +307,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="strat" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="wechat" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Spider" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -355,12 +315,34 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/policy/ShanghaiGov" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/public_accounts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\17337\houszhou\code\PingAn\Spider\policy\ShanghaiGov\start.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/public_accounts/wechat.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="wechat_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Spider" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/public_accounts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/public_accounts/wechat_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -371,11 +353,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.wechat" />
+        <item itemvalue="Python.wechat_test" />
         <item itemvalue="Python.start (2)" />
         <item itemvalue="Python.start" />
         <item itemvalue="Python.start (1)" />
-        <item itemvalue="Python.hangzhou" />
-        <item itemvalue="Python.strat" />
       </list>
     </recent_temporary>
   </component>
@@ -420,12 +402,12 @@
       <workItem from="1564797311098" duration="36614000" />
       <workItem from="1565140799670" duration="8275000" />
       <workItem from="1565229371132" duration="22041000" />
-      <workItem from="1565573976760" duration="3128000" />
+      <workItem from="1565573976760" duration="62428000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="318981000" />
+    <option name="totallyTimeSpent" value="378281000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -445,7 +427,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32939914" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.6051502" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.13948497" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -483,6 +465,7 @@
     <SUITE FILE_PATH="coverage/Spider$nx_req.coverage" NAME="nx_req Coverage Results" MODIFIED="1561096957121" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/ningxia" />
     <SUITE FILE_PATH="coverage/Spider$thread_hlgjg__1_.coverage" NAME="thread_hlgjg (1) Coverage Results" MODIFIED="1561363971144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/heilongjiang_spyp" />
     <SUITE FILE_PATH="coverage/Spider$load_json.coverage" NAME="load_json Coverage Results" MODIFIED="1564367178035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mitm/toutiao" />
+    <SUITE FILE_PATH="coverage/Spider$wechat.coverage" NAME="wechat Coverage Results" MODIFIED="1565773628662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/public_accounts" />
     <SUITE FILE_PATH="coverage/Spider$cfda_gov.coverage" NAME="cfda_gov Coverage Results" MODIFIED="1561619683674" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/ChinaFood" />
     <SUITE FILE_PATH="coverage/Spider$thread_sz.coverage" NAME="thread_sz Coverage Results" MODIFIED="1561026415231" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/suzhou" />
     <SUITE FILE_PATH="coverage/Spider$appium4gif.coverage" NAME="appium4gif Coverage Results" MODIFIED="1563114722676" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mitm/gifshow" />
@@ -494,6 +477,7 @@
     <SUITE FILE_PATH="coverage/Spider$thread_fz.coverage" NAME="thread_fz Coverage Results" MODIFIED="1561541164294" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/fuzhou" />
     <SUITE FILE_PATH="coverage/Spider$sznews.coverage" NAME="sznews Coverage Results" MODIFIED="1565071747291" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/traffic_sz/SzNews/SzNews/spiders" />
     <SUITE FILE_PATH="coverage/Spider$base_code.coverage" NAME="base_code Coverage Results" MODIFIED="1562032802662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tools" />
+    <SUITE FILE_PATH="coverage/Spider$wechat_test.coverage" NAME="wechat_test Coverage Results" MODIFIED="1565748004172" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/public_accounts" />
     <SUITE FILE_PATH="coverage/Spider$thread_hlgjg.coverage" NAME="thread_hlgjg Coverage Results" MODIFIED="1561361793724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/heilongjiang_jg" />
     <SUITE FILE_PATH="coverage/Spider$thread_hb.coverage" NAME="thread_hb Coverage Results" MODIFIED="1561345669444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/hebei" />
     <SUITE FILE_PATH="coverage/Spider$addons_test.coverage" NAME="addons_test Coverage Results" MODIFIED="1563187578005" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mitm/gifshow" />
@@ -522,37 +506,6 @@
     <SUITE FILE_PATH="coverage/Spider$hlgjg_req__1_.coverage" NAME="hlgjg_req (1) Coverage Results" MODIFIED="1561363809883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Food/heilongjiang_spyp" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/BaiKe/BaiKe/spiders/baike.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="15" column="12" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BaiKe/BaiKe/pipelines.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="38" selection-end-column="19" />
-          <folding>
-            <element signature="e#24#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BaiKe/BaiKe/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="31" selection-start-line="31" selection-end-line="35" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/traffic_sz/chinadaily/start.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/scrapy/spiders/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
@@ -881,13 +834,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/policy/GuanzhouGov/start.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/policy/GuanzhouGov/GuanzhouGov/items.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -901,7 +847,7 @@
     <entry file="file://$PROJECT_DIR$/policy/GuanzhouGov/GuanzhouGov/pipelines.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
-          <caret line="2" column="9" lean-forward="true" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -912,20 +858,63 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/policy/GuanzhouGov/scrapy.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/policy/GuanzhouGov/start.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/policy/GuanzhouGov/GuanzhouGov/spiders/guanzhou.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="154">
+          <caret line="7" column="21" lean-forward="true" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/policy/GuanzhouGov/scrapy.cfg">
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/traceback.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="21" />
+        <state relative-caret-position="241">
+          <caret line="162" column="12" selection-start-line="162" selection-start-column="12" selection-end-line="162" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_accounts/wechat_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1562">
+          <caret line="111" column="14" lean-forward="true" selection-start-line="111" selection-start-column="14" selection-end-line="111" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+            <element signature="e#270#1262#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_accounts/wechat.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="199" column="61" lean-forward="true" selection-start-line="199" selection-start-column="61" selection-end-line="199" selection-end-column="61" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#1929#2507#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public_accounts/setting.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="562">
+          <caret line="70" column="29" lean-forward="true" selection-start-line="70" selection-start-column="29" selection-end-line="70" selection-end-column="29" />
         </state>
       </provider>
     </entry>
