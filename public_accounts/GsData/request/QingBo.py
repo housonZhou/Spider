@@ -129,7 +129,9 @@ class QBDriver:
         self.url = 'https://u.gsdata.cn/member/login'
         self.account = ACCOUNT
         self.password = PASSWORD
-        self.browser = webdriver.Chrome()
+        self.opt = webdriver.ChromeOptions()
+        self.opt.add_argument('--headless')
+        self.browser = webdriver.Chrome(options=self.opt)
         self.wait = WebDriverWait(self.browser, 20)
 
     def login(self) -> dict:
