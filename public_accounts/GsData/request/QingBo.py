@@ -67,13 +67,12 @@ class QBO:
             name = item.get('wxname')
             wx = item.get('wx')
             url = self.url.format(name, wx)
-            print(name, url)
+            print(item.get('name'), url)
             data = self.post(url)
             if data:
                 self.page_detail(data)
             else:
                 print('无任何数据: ', url)
-            # post_data = json.loads(data.content.decode())
             time.sleep(SLEEP_TIME)
 
     def post(self, url, retry=10, **kwargs):
