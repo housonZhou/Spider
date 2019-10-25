@@ -59,14 +59,20 @@ class BaseCode(object):
         return [list_in[i * e_count:(i + 1) * e_count] for i in range(num)]
 
     @staticmethod
-    def json2excel(all_json, save_path):
+    def json2excel(all_json, save_path, index=True):
         df = pd.DataFrame(all_json)
-        df.to_excel(save_path)
+        df.to_excel(save_path, index=index)
 
     @staticmethod
     def excel2json(excel_path, orient='records'):
         df = pd.read_excel(excel_path)
         return df.to_dict(orient=orient)
+
+    @staticmethod
+    def str2json(json_str, replace=False):
+        if replace:
+            json_str = json_str.replace('\'', '\"')
+        return json.loads(json_str)
 
 
 class Append2Excel:
