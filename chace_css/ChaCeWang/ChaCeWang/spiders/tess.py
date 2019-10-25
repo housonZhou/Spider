@@ -3,11 +3,11 @@ import os
 import re
 import time
 import requests
-from PIL import Image
-from collections import defaultdict, Counter
 import threading
+from collections import defaultdict, Counter
 
 import pytesseract
+from PIL import Image
 
 from chace_css.ChaCeWang.ChaCeWang.settings import HEADERS, COOKIES
 
@@ -22,20 +22,35 @@ class TessOcr:
 
     def do(self):
         if not self.lock:
+            self.lock = True
+            if self.check():
+                print('验证有效期内，无需重复验证!!!')
+                self.word_list = []
+                self.lock = False
+                return
             self.verify()
+            # lg = Login()
+            # lg.do()
+            self.lock = False
         else:
             print('正在验证中，无需重复验证')
 
+    def check(self):
+        api_url = 'http://www.chacewang.com/ProjectSearch/FindWithPager?sortField=CreateDateTime&sortOrder=desc&' \
+                  'pageindex=0&pageSize=20&cylb=&diqu=RegisterArea_HNDQ_Guangdong_Guangzhou_FY&bumen=&cylbName=&' \
+                  'partition=&partitionName=&searchKey=&_=1570608001560'
+        response = requests.get(api_url, headers=self.headers)
+        req_data = json.loads(response.content.decode())
+        return False if req_data.get('Code') == 'WebCrawlerCheckCount' else True
+
     def verify(self):
-        self.lock = True
         self.update_tess()  # 更新验证码
         self.get_img()  # 获取20张验证码
-        self.tess_result()  # 识别验证码
+        self.tess_result()  # 识别验证码000000000000000000000
         for word in self.word_list.copy():
             if self._verify_tess(word):
                 print('验证成功!!!', word)
                 self.word_list = []
-                self.lock = False
                 return
             else:
                 print('验证失败:', word)
@@ -75,6 +90,44 @@ class TessOcr:
             result = image2string(img_save)
             result_list += result
         self.word_list = do_tess(result_list)
+
+
+class Login:
+    def __init__(self):
+        self.url = 'http://www.chacewang.com/Login/CheckLogin'
+        self.lock = False
+        self.headers = {
+            'Accept': 'text/plain, */*; q=0.01',
+            'Origin': 'http://www.chacewang.com',
+            'X-Requested-With': 'XMLHttpRequest', 'Referer': 'http://www.chacewang.com/Login/New_Detail',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36',
+            'Cookie': 'czc_mainId=9a90a7ae-66fd-4eb9-b58c-00daf7c95298%2C1c60393a-afdd-409d-b7dd-633d91b56cc8; Hm_lvt_42c061ff773ed320147f84a5220d9dcc=1571295542,1571306430,1571365322,1571714913; Hm_lvt_f9b4d143305c6f75248d93b7b5d8f6f1=1571295542,1571306430,1571365322,1571714913; nb-referrer-hostname=www.chacewang.com; ASP.NET_SessionId=epcq34bsryuep353zubhnca0; currentCity=2a0fc015-7d9a-4446-9cac-416cd61b9efa; Hm_lpvt_42c061ff773ed320147f84a5220d9dcc=1571907524; Hm_lpvt_f9b4d143305c6f75248d93b7b5d8f6f1=1571907524; nb-start-page-url=http%3A%2F%2Fwww.chacewang.com%2FNewHome%2FIndex'}
+
+    def do(self):
+        if self.lock:
+            print('登录中，请勿重试')
+            return
+        self.lock = True
+        print('登录中')
+        result = self.login()
+        if result:
+            print('登录成功')
+        else:
+            print('登录失败')
+        self.lock = False
+
+    def login(self):
+        data = {'Account': '17722431797', 'EnPassword': 'kfuw4z2dnb2w4mbsga4a', 'fakeId': '', 'nmId': ''}
+        try:
+            req = requests.post(self.url, data=data, headers=self.headers, cookies=COOKIES)
+            if req.status_code == 200 and req.content == b'3':
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(e)
+            return False
 
 
 def image2string(img_path):
@@ -183,8 +236,10 @@ def top_counter(need_list, index=2):
 
 
 if __name__ == '__main__':
-    to = TessOcr()
-    for _ in range(20):
-        th = threading.Thread(target=to.do)
-        th.start()
-        time.sleep(4)
+    # to = TessOcr()
+    # for _ in range(20):
+    #     th = threading.Thread(target=to.do)
+    #     th.start()
+    #     time.sleep(4)
+    Lg = Login()
+    print(Lg.do())

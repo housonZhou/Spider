@@ -1,8 +1,14 @@
+import os
+import json
+import time
+import requests
+from collections import defaultdict
+
 import scrapy
 from fontTools.ttLib import TTFont
 
-from chace_css.ChaCeWang.ChaCeWang.settings import FONT_FILE, FONT_LIST, PROJECT_TYPE, CITY, CITY_PATH
-from tools.base_code import BaseCode as BCode
+from chace_css.ChaCeWang.ChaCeWang.settings import FONT_FILE, FONT_LIST, PROJECT_TYPE, CITY, CITY_PATH, HEADERS, COOKIES
+from tools.base_code import BaseCode as BCode, Append2Excel as AEexcel
 
 
 class SpiderCha:
@@ -49,5 +55,89 @@ class SpiderCha:
         return {chr(k): font_dict[v] for k, v in font_file['cmap'].getBestCmap().items()}
 
 
+def to_one(dir_path, save_path):
+    data_dict = defaultdict(list)
+    for excel in os.listdir(dir_path):
+        print(excel)
+        excel_path = os.path.join(dir_path, excel)
+        for each in BCode().get_data_from_json(excel_path):
+            data_dict[each.get('链接')].append(each)
+    save_list = []
+    for k, v in data_dict.items():
+        new_ = list_value(v)
+        if new_:
+            new_json = v[0].copy()
+            new_json.update(new_)
+            save_list.append(new_json)
+    BCode().json2excel(all_json=save_list, save_path=save_path, index=False)
+
+
+def list_value(self_list):
+    need = {'股权资助', '事前资助', '科技奖励', '配套资助', '事后资助', '研发资助', '产业化', '招商引资', '创新载体',
+            '人才认定与资助', '产业基金', '产业联盟', '新兴产业', '传统产业', '高新技术企业', '总部企业', '大型企业'}
+    re_dict = {'项目类别': set(), '地区': defaultdict(set), '城市': set()}
+    for item in self_list:
+        pro_type = item.get('项目类别')
+        if pro_type in need:
+            re_dict['项目类别'].add(pro_type)
+        city = item.get('城市')
+        area = item.get('地区')
+        re_dict['城市'].add(city)
+        re_dict['地区'][city].add(area)
+    if len(re_dict['项目类别']) > 0:
+        return {'项目类别': list(re_dict['项目类别']),
+                '城市': list(re_dict['城市']),
+                '地区': {k: list(v) for k, v in re_dict['地区'].items()}}
+
+
+def clean_type(excel_path, save_path):
+    need = {'股权资助', '事前资助', '科技奖励', '配套资助', '事后资助', '研发资助', '产业化', '招商引资', '创新载体',
+            '人才认定与资助', '产业基金', '产业联盟', '新兴产业', '传统产业', '高新技术企业', '总部企业', '大型企业'}
+    new_json = []
+    for item in BCode().excel2json(excel_path):
+        new_type = [i for i in json.loads(item.get('项目类别').replace('\'', '\"')) if i in need]
+        if new_type:
+            new_item = item.copy()
+            new_item['项目类别'] = new_type
+            new_json.append(new_item)
+    # print(len(new_json))
+    BCode().json2excel(new_json, save_path, index=False)
+
+
+class Department:
+    def __init__(self):
+        self.excel = AEexcel(r'C:\Users\17337\houszhou\data\SpiderData\查策网\city_department.xlsx')
+        self._area = BCode().excel2json(r'C:\Users\17337\houszhou\data\SpiderData\查策网\city_area.xlsx')
+
+    def main(self):
+        for item in self._area:
+            print(item)
+            area_uid = item.get('area')
+            department_list = [i for i in self.get(area_uid)]
+            save = item.copy()
+            save['部门'] = department_list
+            print(save)
+            self.excel.add(save)
+            time.sleep(1)
+
+    def get(self, uid):
+        result = self._req(uid).content.decode()
+        for item in json.loads(result):
+            full_name = item.get('FullName')
+            yield full_name
+
+    @staticmethod
+    def _req(uid):
+        url = 'http://www.chacewang.com/ProjectSearch/GetDiqu?dictionaryCode={}'.format(uid)
+        return requests.get(url, headers=HEADERS, cookies=COOKIES, verify=False)
+
+    def test(self):
+        for each in self.get('RegisterArea_ZXS_Beijing_MiYunXian'):
+            print(each)
+
+
 if __name__ == '__main__':
-    pass
+    to_one(r'C:\Users\17337\houszhou\data\SpiderData\查策网\login\test',
+           r'C:\Users\17337\houszhou\data\SpiderData\查策网\login\查策网_更新数据测试.xlsx')
+    # department = Department()
+    # department.main()

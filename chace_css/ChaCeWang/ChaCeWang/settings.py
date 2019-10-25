@@ -14,6 +14,7 @@ BOT_NAME = 'ChaCeWang'
 SPIDER_MODULES = ['ChaCeWang.spiders']
 NEWSPIDER_MODULE = 'ChaCeWang.spiders'
 
+LOG_LEVEL = 'INFO'
 FONT_FILE = r'C:\Users\17337\Downloads\ccw.ttf'
 FONT_LIST = [
     ' ', '9', '8', '3', '4', '7', '5', '&', '>', 'c', 'H', 'q', 'S', '#', 'G', 'h', 'E', 'g', 'x', '(', ')', 'R', '/',
@@ -83,16 +84,17 @@ HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36'
 }
 COOKIES = {
-    'Hm_lvt_42c061ff773ed320147f84a5220d9dcc': '1569575889,1569577851,1569650523',
-    'Hm_lvt_f9b4d143305c6f75248d93b7b5d8f6f1': '1569575889,1569577851,1569650523',
+    'czc_mainId': '9a90a7ae-66fd-4eb9-b58c-00daf7c95298%2C1c60393a-afdd-409d-b7dd-633d91b56cc8',
+    'Hm_lvt_42c061ff773ed320147f84a5220d9dcc': '1571295542,1571306430,1571365322,1571714913',
+    'Hm_lvt_f9b4d143305c6f75248d93b7b5d8f6f1': '1571295542,1571306430,1571365322,1571714913',
     'nb-referrer-hostname': 'www.chacewang.com',
-    'ASP.NET_SessionId': 'bepurveyxtwpnny2ycl5kmfo',
-    'currentCity': '5a3209b2-f868-47fa-862a-15f5c1f950f4',
+    'ASP.NET_SessionId': 'epcq34bsryuep353zubhnca0',
+    'currentCity': '2a0fc015-7d9a-4446-9cac-416cd61b9efa',
     'nb-start-page-url': 'http%3A%2F%2Fwww.chacewang.com%2FProjectSearch%2FCopyIndex%3Fcitycode%3DRegisterArea_HNDQ_Guangdong_SZ%26searchText%3D',
-    'Hm_lpvt_42c061ff773ed320147f84a5220d9dcc': '1569803125',
-    'Hm_lpvt_f9b4d143305c6f75248d93b7b5d8f6f1': '1569803125'
+    'Hm_lpvt_42c061ff773ed320147f84a5220d9dcc': '1571909808',
+    'Hm_lpvt_f9b4d143305c6f75248d93b7b5d8f6f1': '1571909808'
 }
-SAVE_PATH = r'C:\Users\17337\houszhou\data\SpiderData\查策网\now\查策网_广州_1452.{}'
+SAVE_PATH = r'C:\Users\17337\houszhou\data\SpiderData\查策网\login\查策网_all_1024_1819.{}'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'ChaCeWang (+http://www.yourdomain.com)'
