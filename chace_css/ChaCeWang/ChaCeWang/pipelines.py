@@ -7,8 +7,8 @@
 
 import json
 
-from tools.base_code import Append2Excel as AExcel
 from chace_css.ChaCeWang.ChaCeWang.settings import SAVE_PATH
+from tools.base_code import Append2Excel as AExcel
 
 
 class ChacewangPipeline(object):
@@ -29,7 +29,8 @@ class ChacewangPipeline(object):
         save = item.get('save')
         info = save.get('info')
         result = item.get('result')
-        save_data = {'城市': save.get('city'), '地区': save.get('area_name'), '项目类别': info.get('partition_real')}
+        save_data = {'城市': save.get('city'), '地区': save.get('area_name'), '项目类别': info.get('partition_real'),
+                     '默认地区': save.get('default_area')}
         save_data.update(result)
         self.write_json(save_data.copy())
         self.AExcel.add(data=[save_data])

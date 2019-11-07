@@ -118,7 +118,7 @@ class Login:
         self.lock = False
 
     def login(self):
-        data = {'Account': '17722431797', 'EnPassword': 'kfuw4z2dnb2w4mbsga4a', 'fakeId': '', 'nmId': ''}
+        data = {'Account': '******', 'EnPassword': '******', 'fakeId': '', 'nmId': ''}
         try:
             req = requests.post(self.url, data=data, headers=self.headers, cookies=COOKIES)
             if req.status_code == 200 and req.content == b'3':

@@ -1,9 +1,11 @@
-import os
+import copy
 import json
+import os
 import time
-import requests
 from collections import defaultdict
 
+import requests
+import pandas as pd
 import scrapy
 from fontTools.ttLib import TTFont
 
@@ -42,7 +44,7 @@ class SpiderCha:
         return self.change(result_str) if is_change else result_str
 
     def change(self, detail):
-        return ''.join([self.change_font.get(each, each) for each in detail])
+        return ''.join([self.change_font.get(each, each) for each in detail]) if detail else ''
 
     def city_code(self, k):
         return {i.get(k): i for i in self.city_list}
@@ -66,28 +68,21 @@ def to_one(dir_path, save_path):
     for k, v in data_dict.items():
         new_ = list_value(v)
         if new_:
-            new_json = v[0].copy()
+            new_json = copy.deepcopy(v[0])
             new_json.update(new_)
             save_list.append(new_json)
     BCode().json2excel(all_json=save_list, save_path=save_path, index=False)
 
 
 def list_value(self_list):
-    need = {'股权资助', '事前资助', '科技奖励', '配套资助', '事后资助', '研发资助', '产业化', '招商引资', '创新载体',
-            '人才认定与资助', '产业基金', '产业联盟', '新兴产业', '传统产业', '高新技术企业', '总部企业', '大型企业'}
-    re_dict = {'项目类别': set(), '地区': defaultdict(set), '城市': set()}
+    # need = {'股权资助', '事前资助', '科技奖励', '配套资助', '事后资助', '研发资助', '产业化', '招商引资', '创新载体',
+    #         '人才认定与资助', '产业基金', '产业联盟', '新兴产业', '传统产业', '高新技术企业', '总部企业', '大型企业'}
+    re_dict = {'项目类别': set(), '城市': set()}
     for item in self_list:
-        pro_type = item.get('项目类别')
-        if pro_type in need:
-            re_dict['项目类别'].add(pro_type)
-        city = item.get('城市')
-        area = item.get('地区')
-        re_dict['城市'].add(city)
-        re_dict['地区'][city].add(area)
-    if len(re_dict['项目类别']) > 0:
-        return {'项目类别': list(re_dict['项目类别']),
-                '城市': list(re_dict['城市']),
-                '地区': {k: list(v) for k, v in re_dict['地区'].items()}}
+        re_dict['项目类别'].add(item.get('项目类别'))
+        re_dict['城市'].add(item.get('城市'))
+        # re_dict['默认地区'].add(item.get('默认地区'))
+    return {k: list(v) for k, v in re_dict.items()}
 
 
 def clean_type(excel_path, save_path):
@@ -136,8 +131,23 @@ class Department:
             print(each)
 
 
+def no_type(all_path, type_path, save_path):
+    all_data = pd.read_excel(all_path)
+    type_data = pd.read_excel(type_path)
+    all_set = set(all_data.get('链接'))
+    type_set = set(type_data.get('链接'))
+    no_set = all_set - type_set
+    new = [item for item in all_data.to_dict(orient='records') if item.get('链接') in no_set]
+    print(len(new))
+    BCode.json2excel(new, save_path)
+    # print(new)
+
+
 if __name__ == '__main__':
-    to_one(r'C:\Users\17337\houszhou\data\SpiderData\查策网\login\test',
-           r'C:\Users\17337\houszhou\data\SpiderData\查策网\login\查策网_更新数据测试.xlsx')
+    to_one(r'C:\Users\17337\houszhou\data\SpiderData\查策网\1105更新\do',
+           r'C:\Users\17337\houszhou\data\SpiderData\查策网\1105更新\查策网_5城市_1105更新_合并去重.xlsx')
     # department = Department()
     # department.main()
+    # no_type(r'C:\Users\17337\houszhou\data\SpiderData\查策网\futian\查策网_深圳_1105_all.xlsx',
+    #         r'C:\Users\17337\houszhou\data\SpiderData\查策网\futian\查策网_深圳_1105_项目类别.xlsx',
+    #         r'C:\Users\17337\houszhou\data\SpiderData\查策网\futian\查策网_深圳_1105_无项目类别_1631.xlsx')
