@@ -4,8 +4,8 @@ import os
 import time
 from collections import defaultdict
 
-import requests
 import pandas as pd
+import requests
 import scrapy
 from fontTools.ttLib import TTFont
 

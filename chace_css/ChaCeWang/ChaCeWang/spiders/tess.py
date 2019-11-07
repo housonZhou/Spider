@@ -1,12 +1,10 @@
 import json
 import os
 import re
-import time
-import requests
-import threading
 from collections import defaultdict, Counter
 
 import pytesseract
+import requests
 from PIL import Image
 
 from chace_css.ChaCeWang.ChaCeWang.settings import HEADERS, COOKIES
