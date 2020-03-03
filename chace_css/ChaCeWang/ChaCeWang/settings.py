@@ -94,7 +94,7 @@ COOKIES = {
     'Hm_lpvt_42c061ff773ed320147f84a5220d9dcc': '1571909808',
     'Hm_lpvt_f9b4d143305c6f75248d93b7b5d8f6f1': '1571909808'
 }
-SAVE_PATH = r'C:\Users\17337\houszhou\data\SpiderData\查策网\1105更新\查策网_4城市_1105_项目类别.{}'
+SAVE_PATH = r'C:\Users\17337\houszhou\data\SpiderData\查策网\1107惠州\查策网_惠州深圳区县_1107_1543.{}'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'ChaCeWang (+http://www.yourdomain.com)'

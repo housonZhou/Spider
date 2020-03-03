@@ -77,12 +77,14 @@ def to_one(dir_path, save_path):
 def list_value(self_list):
     # need = {'股权资助', '事前资助', '科技奖励', '配套资助', '事后资助', '研发资助', '产业化', '招商引资', '创新载体',
     #         '人才认定与资助', '产业基金', '产业联盟', '新兴产业', '传统产业', '高新技术企业', '总部企业', '大型企业'}
-    re_dict = {'项目类别': set(), '城市': set()}
+    re_dict = {'项目类别': set(), '城市': set(), '地区': defaultdict(set)}
     for item in self_list:
+        city = item.get('城市')
         re_dict['项目类别'].add(item.get('项目类别'))
-        re_dict['城市'].add(item.get('城市'))
-        # re_dict['默认地区'].add(item.get('默认地区'))
-    return {k: list(v) for k, v in re_dict.items()}
+        re_dict['城市'].add(city)
+        re_dict['地区'][city].add(item.get('地区'))
+    return {'项目类别': list(re_dict['项目类别']), '城市': list(re_dict['城市']),
+            '地区': {k: list(v) for k, v in re_dict['地区'].items()}}
 
 
 def clean_type(excel_path, save_path):
@@ -101,7 +103,7 @@ def clean_type(excel_path, save_path):
 
 class Department:
     def __init__(self):
-        self.excel = AEexcel(r'C:\Users\17337\houszhou\data\SpiderData\查策网\city_department.xlsx')
+        self.excel = AEexcel(r'C:\Users\17337\houszhou\data\SpiderData\查策网\city_department_惠州.xlsx')
         self._area = BCode().excel2json(r'C:\Users\17337\houszhou\data\SpiderData\查策网\city_area.xlsx')
 
     def main(self):
@@ -144,8 +146,8 @@ def no_type(all_path, type_path, save_path):
 
 
 if __name__ == '__main__':
-    to_one(r'C:\Users\17337\houszhou\data\SpiderData\查策网\1105更新\do',
-           r'C:\Users\17337\houszhou\data\SpiderData\查策网\1105更新\查策网_5城市_1105更新_合并去重.xlsx')
+    to_one(r'C:\Users\17337\houszhou\data\SpiderData\查策网\1107惠州\done',
+           r'C:\Users\17337\houszhou\data\SpiderData\查策网\1107惠州\查策网_深圳惠州_1108_合并去重.xlsx')
     # department = Department()
     # department.main()
     # no_type(r'C:\Users\17337\houszhou\data\SpiderData\查策网\futian\查策网_深圳_1105_all.xlsx',
