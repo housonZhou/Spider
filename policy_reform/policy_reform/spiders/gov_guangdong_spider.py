@@ -8,9 +8,9 @@ from copy import deepcopy
 import scrapy
 
 from policy_reform.items import PolicyReformItem, extension_default
-from policy_reform.settings import HEADERS, FILES_STORE, RUN_LEVEL, PRINT_ITEM
+from policy_reform.settings import HEADERS, FILES_STORE, RUN_LEVEL, PRINT_ITEM, IMG_ERROR_TYPE
 from policy_reform.util import obj_first, RedisConnect, xpath_from_remove, time_map, get_html_content, effective, \
-    GovBeiJingPageControl, get_cookie
+    GovBeiJingPageControl, get_cookie, find_effective_start
 
 conn = RedisConnect().conn
 
@@ -175,6 +175,23 @@ class GovGuangDongSpider(scrapy.Spider):
             extension['file_url'].append(download_url)
             extension['file_type'].append('')
 
+        attach_img = response.xpath('{}//img[not(@href="javascript:void(0);")]'.format(content_str))
+        img_name = 'alt'
+        for a in attach_img:
+            file_name = a.xpath('./@{}'.format(img_name)).extract_first()
+            url_ = a.xpath('./@src').extract_first()
+            if not url_ or url_.split('.')[-1].lower() in IMG_ERROR_TYPE:
+                continue
+            if not file_name:
+                file_name = url_.split('/')[-1]
+            download_url = response.urljoin(url_)
+            extension['file_name'].append(file_name)
+            extension['file_url'].append(download_url)
+            extension['file_type'].append('')
+            # print(file_name, download_url)
+        if not effective_start:
+            effective_start = find_effective_start(content, publish_time)
+
         extension['doc_no'] = doc_no
         extension['index_no'] = index_no
         extension['theme'] = theme
@@ -238,7 +255,6 @@ class GovGuangDongSpider(scrapy.Spider):
         html_content = get_html_content(response, content_str).strip()
         # 附件信息
         attach = response.xpath('{}//a[not(@href="javascript:void(0);")]'.format(content_str))
-
         extension = deepcopy(extension_default)
         for a in attach:
             file_name = a.xpath('string(.)').extract_first()
@@ -249,6 +265,23 @@ class GovGuangDongSpider(scrapy.Spider):
             extension['file_name'].append(file_name)
             extension['file_url'].append(download_url)
             extension['file_type'].append('')
+
+        attach_img = response.xpath('{}//img[not(@href="javascript:void(0);")]'.format(content_str))
+        img_name = 'alt'
+        for a in attach_img:
+            file_name = a.xpath('./@{}'.format(img_name)).extract_first()
+            url_ = a.xpath('./@src').extract_first()
+            if not url_ or url_.split('.')[-1].lower() in IMG_ERROR_TYPE:
+                continue
+            if not file_name:
+                file_name = url_.split('/')[-1]
+            download_url = response.urljoin(url_)
+            extension['file_name'].append(file_name)
+            extension['file_url'].append(download_url)
+            extension['file_type'].append('')
+            # print(file_name, download_url)
+        if not effective_start:
+            effective_start = find_effective_start(content, publish_time)
 
         extension['doc_no'] = doc_no
         extension['index_no'] = index_no

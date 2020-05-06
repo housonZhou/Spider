@@ -99,3 +99,4 @@ RUN_LEVEL = 'FORMAT'  # FORMAT
 LOG_LEVEL = 'INFO'
 PRINT_ITEM = False
 COMMANDS_MODULE = 'policy_reform.commands'
+IMG_ERROR_TYPE = ['gif']

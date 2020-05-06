@@ -109,6 +109,10 @@ def effective(start, end):
         return '失效'
 
 
+def find_effective_start(content, publish_time):
+    return time_map(obj_first(re.findall(r'[自从]\d{4}\D\d{1,2}\D\d{1,2}\D{0,5}(?:实施|施行)', content)), error=publish_time)
+
+
 class PageHTMLControl:
     """
     翻页器： pageControl(4, 2, "index", "shtml", 10, 'pages-nav');
@@ -229,5 +233,6 @@ class TimeShow:
 
 
 if __name__ == '__main__':
-    ts = TimeShow()
-    print(ts.median(['00:30', '10:21', '01:51']))
+    # ts = TimeShow()
+    # print(ts.median(['00:30', '10:21', '01:51']))
+    print(find_effective_start('政策从2020年10月111日起正式施行', '2020-10-11'))

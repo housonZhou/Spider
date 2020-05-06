@@ -8,8 +8,10 @@ from copy import deepcopy
 import scrapy
 
 from policy_reform.items import PolicyReformItem, extension_default
-from policy_reform.settings import HEADERS, FILES_STORE, RUN_LEVEL, PRINT_ITEM
-from policy_reform.util import obj_first, RedisConnect, xpath_from_remove, time_map, get_html_content, effective
+from policy_reform.settings import HEADERS, FILES_STORE, RUN_LEVEL, PRINT_ITEM, IMG_ERROR_TYPE
+from policy_reform.util import obj_first, RedisConnect, xpath_from_remove, time_map, get_html_content, effective, \
+    find_effective_start
+
 
 conn = RedisConnect().conn
 
@@ -44,6 +46,9 @@ class GovSpider(scrapy.Spider):
         for item in response.xpath('//ul[@class="listTxt"]/li/h4/a'):
             link = item.xpath('./@href').extract_first()
             url = response.urljoin(link)
+            if url in ('http://www.gov.cn/zhengce/qiyefugongfuchanzczlc/index.htm',
+                       'http://www.gov.cn/zhengce/jyyjc/index.htm'):
+                continue
             if RUN_LEVEL == 'FORMAT':
                 if conn.hget(self.project_hash, source_module + '-' + url):
                     return
@@ -93,7 +98,7 @@ class GovSpider(scrapy.Spider):
 
     def news_style(self, response):
         item = PolicyReformItem()
-        file_type = ''
+        file_type = effective_start = effective_end = ''
         title = response.xpath('string(//div[@class="article oneColumn pub_border"]/h1)').extract_first().strip()
         content_str = '//*[@id="UCAP-CONTENT"]'
         content = xpath_from_remove(response, 'string({})'.format(content_str)).strip()
@@ -112,6 +117,24 @@ class GovSpider(scrapy.Spider):
             extension['file_url'].append(download_url)
             extension['file_type'].append('')
 
+        attach_img = response.xpath('{}//img[not(@href="javascript:void(0);")]'.format(content_str))
+        img_name = 'alt'
+        for a in attach_img:
+            file_name = a.xpath('./@{}'.format(img_name)).extract_first()
+            url_ = a.xpath('./@src').extract_first()
+            if not url_ or url_.split('.')[-1].lower() in IMG_ERROR_TYPE:
+                continue
+            if not file_name:
+                file_name = url_.split('/')[-1]
+            download_url = response.urljoin(url_)
+            extension['file_name'].append(file_name)
+            extension['effective_endfile_url'].append(download_url)
+            extension['file_type'].append('')
+        if not effective_start:
+            effective_start = find_effective_start(content, publish_time)
+        item['effective_start'] = effective_start
+        extension['is_effective'] = effective(effective_start, )
+        extension['effective_end'] = effective_end
         item['content'] = content
         item['title'] = title
         item['file_type'] = file_type
@@ -124,7 +147,7 @@ class GovSpider(scrapy.Spider):
     def zhengce_style(self, response):
         item = PolicyReformItem()
         table = response.xpath('//div[@class="wrap"]/table[1]/tbody//tbody/tr/td/b')
-        index_no = write_time = title = doc_no = publish_time = theme = source = effective_end = ''
+        index_no = write_time = title = doc_no = publish_time = theme = source = effective_end = effective_start = ''
         for i in table:
             key = i.xpath('./text()').extract_first()
             key = re.sub(r'\s+', '', key)
@@ -166,14 +189,30 @@ class GovSpider(scrapy.Spider):
             extension['file_url'].append(download_url)
             extension['file_type'].append('')
 
+        attach_img = response.xpath('{}//img[not(@href="javascript:void(0);")]'.format(content_str))
+        img_name = 'alt'
+        for a in attach_img:
+            file_name = a.xpath('./@{}'.format(img_name)).extract_first()
+            url_ = a.xpath('./@src').extract_first()
+            if not url_ or url_.split('.')[-1].lower() in IMG_ERROR_TYPE:
+                continue
+            if not file_name:
+                file_name = url_.split('/')[-1]
+            download_url = response.urljoin(url_)
+            extension['file_name'].append(file_name)
+            extension['file_url'].append(download_url)
+            extension['file_type'].append('')
+        if not effective_start:
+            effective_start = find_effective_start(content, publish_time)
+
         extension = deepcopy(extension_default)
         extension['doc_no'] = doc_no
         extension['index_no'] = index_no
         extension['theme'] = theme
         extension['write_time'] = write_time
-        extension['effective_start'] = publish_time
+        extension['effective_start'] = effective_start
         extension['effective_end'] = effective_end
-        extension['is_effective'] = effective(publish_time, '')
+        extension['is_effective'] = effective(effective_start, '')
         item['content'] = content
         item['title'] = title
         item['file_type'] = file_type

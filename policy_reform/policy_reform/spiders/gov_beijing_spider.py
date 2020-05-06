@@ -8,9 +8,9 @@ from copy import deepcopy
 import scrapy
 
 from policy_reform.items import PolicyReformItem, extension_default
-from policy_reform.settings import HEADERS, FILES_STORE, RUN_LEVEL, PRINT_ITEM
+from policy_reform.settings import HEADERS, FILES_STORE, RUN_LEVEL, PRINT_ITEM, IMG_ERROR_TYPE
 from policy_reform.util import obj_first, RedisConnect, xpath_from_remove, time_map, get_html_content, effective, \
-    GovBeiJingPageControl
+    GovBeiJingPageControl, find_effective_start
 
 
 class GovBeiJingSpider(scrapy.Spider):
@@ -117,13 +117,13 @@ class GovBeiJingSpider(scrapy.Spider):
             elif '主题分类' in doc:
                 theme = span
             elif '成文日期' in doc:
-                write_time = span
+                write_time = time_map(span)
             elif '发布日期' in doc:
-                publish_time = span
+                publish_time = time_map(span)
             elif '有效性' in doc:
                 is_effective = span
             elif '实施日期' in doc:
-                effective_start = span
+                effective_start = time_map(span)
             # elif '废止日期' in doc:
             #     effective_end = span
         if pub_other:
@@ -151,13 +151,29 @@ class GovBeiJingSpider(scrapy.Spider):
             extension['file_url'].append(download_url)
             extension['file_type'].append('')
 
+        attach_img = response.xpath('{}//img[not(@href="javascript:void(0);")]'.format(content_str))
+        img_name = 'alt'
+        for a in attach_img:
+            file_name = a.xpath('./@{}'.format(img_name)).extract_first()
+            url_ = a.xpath('./@src').extract_first()
+            if not url_ or url_.split('.')[-1].lower() in IMG_ERROR_TYPE:
+                continue
+            if not file_name:
+                file_name = url_.split('/')[-1]
+            download_url = response.urljoin(url_)
+            extension['file_name'].append(file_name)
+            extension['file_url'].append(download_url)
+            extension['file_type'].append('')
+        if not effective_start:
+            effective_start = find_effective_start(content, publish_time)
+
         extension['doc_no'] = doc_no
         extension['index_no'] = index_no
         extension['theme'] = theme
         extension['write_time'] = write_time
         extension['effective_start'] = effective_start
         extension['effective_end'] = effective_end
-        extension['is_effective'] = '先行有效' if is_effective == '是' else ''
+        extension['is_effective'] = effective(effective_start, effective_end) if is_effective == '是' else ''
         item['content'] = content
         item['title'] = title
         item['file_type'] = file_type

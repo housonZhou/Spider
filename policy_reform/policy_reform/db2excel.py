@@ -71,5 +71,15 @@ def main(date):
         df.to_excel(save_path, index=False)
 
 
+def split_title(excel_file, save_file):
+    df = pd.read_excel(excel_file)
+    title_list = df.columns.values
+    # print(title_list)
+    df.rename(columns={name: name.split('#')[0] for name in title_list}, inplace=True)
+    df.to_excel(save_file, index=False)
+
+
 if __name__ == '__main__':
-    main('2020-04-23')
+    main('2020-04-30')
+    # split_title(r"C:\Users\17337\houszhou\data\SpiderData\发改政策\new\上海市人民政府_20200423.xlsx",
+    #             r"C:\Users\17337\houszhou\data\SpiderData\发改政策\new\上海市人民政府_20200423_split.xlsx")
