@@ -128,7 +128,7 @@ class GovSpider(scrapy.Spider):
                 file_name = url_.split('/')[-1]
             download_url = response.urljoin(url_)
             extension['file_name'].append(file_name)
-            extension['effective_endfile_url'].append(download_url)
+            extension['file_url'].append(download_url)
             extension['file_type'].append('')
         if not effective_start:
             effective_start = find_effective_start(content, publish_time)
