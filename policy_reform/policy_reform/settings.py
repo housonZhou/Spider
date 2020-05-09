@@ -95,8 +95,10 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-RUN_LEVEL = 'FORMAT'  # FORMAT
+# RUN_LEVEL = 'FORMAT'  # FORMAT
+RUN_LEVEL = 'DEBUG'  # DEBUG
 LOG_LEVEL = 'INFO'
-PRINT_ITEM = False
+# PRINT_ITEM = False
+PRINT_ITEM = True
 COMMANDS_MODULE = 'policy_reform.commands'
 IMG_ERROR_TYPE = ['gif']

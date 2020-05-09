@@ -11,8 +11,9 @@ class Command(ScrapyCommand):
         return 'Runs all of the spiders'
 
     def run(self, args, opts):
-        spider_list = self.crawler_process.spiders.list()
+        spider_list = self.crawler_process.spider_loader.list()
         for name in spider_list:
             print('spider: {}'.format(name))
             self.crawler_process.crawl(name, **opts.__dict__)
         self.crawler_process.start()
+        print('crawler_process.start()')

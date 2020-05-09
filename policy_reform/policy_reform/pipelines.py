@@ -35,7 +35,7 @@ class PolicyReformPipeline(object):
         self.execute(sql=self.insert_sql(keys), meta=values)
         if RUN_LEVEL == 'FORMAT':
             self.con.commit()
-        # self.con.commit()
+        self.con.commit()
         return item
 
     def __del__(self):

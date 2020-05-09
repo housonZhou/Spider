@@ -104,7 +104,7 @@ def effective(start, end):
     if now < start:
         return '尚未生效'
     elif start <= now < end:
-        return '先行有效'
+        return '现行有效'
     else:
         return '失效'
 
@@ -118,7 +118,7 @@ class PageHTMLControl:
     翻页器： pageControl(4, 2, "index", "shtml", 10, 'pages-nav');
              http://www.hubei.gov.cn/zhuanti/2020/gzxxgzbd/zy/index_2.shtml
     """
-    def __init__(self, response, re_str='createPageHTML(.*?);', count=False):
+    def __init__(self, response: str, re_str='createPageHTML(.*?);', count=False):
         # createPageHTML(89, 1,"index", "shtml",  "black2",621);
         self.find = re.findall(r'{}'.format(re_str), response)
         try:
@@ -202,6 +202,7 @@ class RedisConnect:
     def __init__(self):
         pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
         self.conn = redis.StrictRedis(connection_pool=pool)
+        print('redis connect success')
 
 
 class TimeShow:
