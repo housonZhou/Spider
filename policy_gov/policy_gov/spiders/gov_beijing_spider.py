@@ -175,7 +175,7 @@ class GovBeiJingSpider(scrapy.Spider):
                 extension['file_type'].append('')
 
         attach_img = response.xpath('{}//img[not(@href="javascript:void(0);")]'.format(content_str))
-        img_name = 'alt'
+        img_name = 'none'
         for a in attach_img:
             file_name = a.xpath('./@{}'.format(img_name)).extract_first()
             url_ = a.xpath('./@src').extract_first()
