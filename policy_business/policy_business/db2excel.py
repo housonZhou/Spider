@@ -80,6 +80,6 @@ def split_title(excel_file, save_file):
 
 
 if __name__ == '__main__':
-    main('2020-05-21')
+    main('2020-05-29')
     # split_title(r"C:\Users\17337\houszhou\data\SpiderData\发改政策\new\上海市人民政府_20200423.xlsx",
     #             r"C:\Users\17337\houszhou\data\SpiderData\发改政策\new\上海市人民政府_20200423_split.xlsx")

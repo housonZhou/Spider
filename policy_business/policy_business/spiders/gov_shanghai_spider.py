@@ -10,7 +10,7 @@ import scrapy
 from policy_business.items import PolicyReformItem, extension_default
 from policy_business.settings import HEADERS, FILES_STORE, RUN_LEVEL, PRINT_ITEM, IMG_ERROR_TYPE
 from policy_business.util import obj_first, RedisConnect, xpath_from_remove, time_map, get_html_content, effective, \
-    find_effective_start
+    find_effective_start, format_doc_no, format_file_type
 
 
 class GovShangHaiSpider(scrapy.Spider):
@@ -52,7 +52,16 @@ class GovShangHaiSpider(scrapy.Spider):
              "政府采购", "营商环境-上海-政策集锦", "政府文件"),
             ("http://www.shanghai.gov.cn/nw2/nw2314/nw43190/nw43672/nw43674/nw48896/index.html",
              "投资指南", "营商环境-上海-政策集锦", "政府文件"),
-
+            ("http://www.shanghai.gov.cn/nw2/nw2314/nw43190/nw43672/nw43676/nw43687/index.html",
+             "开办企业", "营商环境-上海-政策解读", "部门解读"),
+            ("http://www.shanghai.gov.cn/nw2/nw2314/nw43190/nw43672/nw43676/nw43688/index.html",
+             "施工许可", "营商环境-上海-政策解读", "部门解读"),
+            ("http://www.shanghai.gov.cn/nw2/nw2314/nw43190/nw43672/nw43676/nw43702/index.html",
+             "获得电力", "营商环境-上海-政策解读", "部门解读"),
+            ("http://www.shanghai.gov.cn/nw2/nw2314/nw43190/nw43672/nw43676/nw43689/index.html",
+             "财产登记", "营商环境-上海-政策解读", "部门解读"),
+            ("http://www.shanghai.gov.cn/nw2/nw2314/nw43190/nw43672/nw43676/nw43690/index.html",
+             "纳税", "营商环境-上海-政策解读", "部门解读"),
         ]
         # self.cookies = get_cookie('http://www.hubei.gov.cn/xxgk/gsgg/')
         for url, name, category, classify in urls:
@@ -82,7 +91,7 @@ class GovShangHaiSpider(scrapy.Spider):
             # print(url, meta)
             if 'htm' in url:
                 print('html_url', url)
-                # yield scrapy.Request(url, callback=self.parse_detail, headers=HEADERS, meta=meta)
+                yield scrapy.Request(url, callback=self.parse_detail, headers=HEADERS, meta=meta)
             # else:
             #     file_meta = meta.copy()
             #     file_meta.update({'title': url_title})
@@ -128,12 +137,13 @@ class GovShangHaiSpider(scrapy.Spider):
         item = self.zhengce_style(response)
 
         source_module = '-'.join(response.xpath('//ul[@class="breadcrumb"]/li//a/text()').extract())
-        # source_module = response.meta.get('source_module')
-        # item = PolicyReformItem()
-        # item['content'] = content
+        doc_no = item['extension']['doc_no']
+        doc_no = format_doc_no(doc_no)
+        item['extension']['doc_no'] = doc_no
+        item['file_type'] = format_file_type(doc_no)
         item['row_id'] = row_id
         item['website'] = self.website
-        item['source_module'] = source_module
+        item['source_module'] = source_module if source_module else response.meta.get('name')
         item['url'] = response.url
         # item['title'] = title
         # item['file_type'] = file_type
@@ -153,6 +163,8 @@ class GovShangHaiSpider(scrapy.Spider):
             file_name_type = os.path.splitext(file_name)[-1]  # 页面上显示的文件类型
             if (not file_name_type) or re.findall(r'[^\.a-zA-Z0-9]', file_name_type) or len(file_name_type) > 7:
                 file_name = file_name + file_type
+            file_name = '{}_{}'.format(index, file_name)  # 加上索引，防止重复
+            item['extension']['file_name'][index] = file_name
             meta = {'row_id': row_id, 'file_name': file_name}
             if RUN_LEVEL == 'FORMAT':
                 yield scrapy.Request(file_url, meta=meta, headers=HEADERS, callback=self.file_download, dont_filter=True)
@@ -179,16 +191,9 @@ class GovShangHaiSpider(scrapy.Spider):
 
         if not doc_no or re.findall(r'批准|通过', doc_no):
             doc_no = ''
-            file_type = ''
-        elif '〔' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)〔', doc_no))
-        elif '第' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)第', doc_no))
-        elif obj_first(re.findall(r'^(.*?)\d', doc_no)):
-            file_type = obj_first(re.findall(r'^(.*?)\d', doc_no))
-        else:
-            file_type = ''
         content_str = '//*[@id="ivs_content"]'
+        if not response.xpath(content_str):
+            content_str = '//div[@class="Article_content"]'
         content = xpath_from_remove(response, 'string({})'.format(content_str)).strip()
 
         html_content = get_html_content(response, content_str).strip()
@@ -234,7 +239,6 @@ class GovShangHaiSpider(scrapy.Spider):
         extension['is_effective'] = effective(effective_start, effective_end)
         item['content'] = content
         item['title'] = title
-        item['file_type'] = file_type
         item['source'] = source if source else self.website
         item['publish_time'] = publish_time
         item['html_content'] = html_content

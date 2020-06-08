@@ -1,8 +1,8 @@
 import datetime
 import hashlib
+import json
 import os
 import re
-import json
 import time
 from copy import deepcopy
 
@@ -11,7 +11,7 @@ import scrapy
 from policy_business.items import PolicyReformItem, extension_default
 from policy_business.settings import HEADERS, FILES_STORE, RUN_LEVEL, PRINT_ITEM, IMG_ERROR_TYPE
 from policy_business.util import obj_first, RedisConnect, xpath_from_remove, time_map, get_html_content, effective, \
-    GovBeiJingPageControl, find_effective_start
+    find_effective_start, GovBeiJingPageControl, format_doc_no, format_file_type
 
 
 class GovBeiJingSpider(scrapy.Spider):
@@ -45,9 +45,19 @@ class GovBeiJingSpider(scrapy.Spider):
         # self.cookies = get_cookie('http://www.hubei.gov.cn/xxgk/gsgg/')
 
         for item in urls:
+            # continue
             url = 'http://www.beijing.gov.cn/so/zcdh/yshj/policyList'
             post_data = {'channelId': item.get('channelId'), 'page': '1'}
             yield scrapy.FormRequest(url, meta=item, callback=self.parse, headers=HEADERS, formdata=post_data)
+
+        urls = [
+            ("http://www.beijing.gov.cn/fuwu/lqfw/ztzl/yshj/jd/index.html",
+             "营商环境-北京-政策解读", "部门解读"),
+        ]
+        # self.cookies = get_cookie('http://www.hubei.gov.cn/xxgk/gsgg/')
+        for url, category, classify in urls:
+            yield scrapy.Request(url, meta={"classify": classify, 'category': category},
+                                 callback=self.parse_gov, headers=HEADERS)
 
     def parse(self, response: scrapy.http.Response):
         conn = RedisConnect().conn
@@ -80,14 +90,51 @@ class GovBeiJingSpider(scrapy.Spider):
             post_data = {'channelId': channelId, 'page': str(next_page)}
             yield scrapy.FormRequest(url, meta=meta, callback=self.parse, headers=HEADERS, formdata=post_data)
 
+    def parse_gov(self, response: scrapy.http.Response):
+        conn = RedisConnect().conn
+        classify = response.meta.get('classify')
+        category = response.meta.get('category')
+        meta = {"classify": classify, 'category': category}
+        url = response.url
+        if '/zfwj2016/' in url:
+            pager = JsPage(response.text)
+        else:
+            pager = GovBeiJingPageControl(response.text)
+        next_page = pager.next_page(url)
+
+        for item in response.xpath('//ul[@class="list"]/li/a'):
+            link = item.xpath('./@href').extract_first()
+            url = response.urljoin(link)
+            if RUN_LEVEL == 'FORMAT':
+                if conn.hget(self.project_hash, category + '-' + url):
+                    return
+                else:
+                    conn.hset(self.project_hash, category + '-' + url, 1)
+            # print(url, meta)
+            yield scrapy.Request(url, callback=self.parse_detail, headers=HEADERS, meta=meta)
+        print('next_page', next_page, meta)
+        if next_page:
+            yield scrapy.Request(next_page, callback=self.parse_gov, headers=HEADERS, meta=meta)
+
     def parse_detail(self, response: scrapy.http.Response):
         row_id = hashlib.md5(response.url.encode()).hexdigest()
+        if response.xpath('//p[@class="cakeNav"]') and \
+                '视频北京' in response.xpath('string(//p[@class="cakeNav"])').extract_first():
+            print('视频北京', response.url)
+            return
         item = self.zhengce_style(response)
         name = response.meta.get('name')
         model_list = response.xpath('//div[@class="crumbs"]/a/text()').extract()
-        model_list.append(name)
+        if name:
+            model_list.append(name)
         source_module = '-'.join(model_list)
         classify = response.meta.get('classify')
+        
+        doc_no = item['extension']['doc_no']
+        doc_no = format_doc_no(doc_no)
+        item['extension']['doc_no'] = doc_no
+        item['file_type'] = format_file_type(doc_no)
+        
         item['row_id'] = row_id
         item['website'] = self.website
         item['source_module'] = source_module
@@ -113,8 +160,8 @@ class GovBeiJingSpider(scrapy.Spider):
             file_name_type = os.path.splitext(file_name)[-1]
             if (not file_name_type) or re.findall(r'[^\.a-zA-Z0-9]', file_name_type) or len(file_name_type) > 7:
                 file_name = file_name + file_type
-                # 修改file_name
-                item['extension']['file_name'][index] = file_name
+            file_name = '{}_{}'.format(index, file_name)  # 加上索引，防止重复
+            item['extension']['file_name'][index] = file_name
             meta = {'row_id': row_id, 'file_name': file_name}
             if RUN_LEVEL == 'FORMAT':
                 yield scrapy.Request(file_url, meta=meta, headers=HEADERS, callback=self.file_download,
@@ -159,18 +206,6 @@ class GovBeiJingSpider(scrapy.Spider):
             source = '{};{}'.format(source, pub_other)
         if doc_no:
             doc_no = re.sub(r'〔〕号|〔〕', '', doc_no)
-        if not doc_no:
-            file_type = ''
-        elif '〔' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)〔', doc_no))
-        elif '[' in doc_no:
-            file_type = obj_first(re.findall(r'^(.*?)\[', doc_no))
-        elif '第' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)第', doc_no))
-        elif obj_first(re.findall(r'^(.*?)\d', doc_no)):
-            file_type = obj_first(re.findall(r'^(.*?)\d', doc_no))
-        else:
-            file_type = ''
         if not source and not publish_time:
             message = response.xpath('string(//p[@class="fl"])').extract_first(default='')
             source = obj_first(re.findall(r'来源：\s*([^\s\|]*)\s*', message))
@@ -181,7 +216,7 @@ class GovBeiJingSpider(scrapy.Spider):
 
         html_content = get_html_content(response, content_str).strip()
         # 附件信息
-        attach = response.xpath('//ul[@class="fujian"]/li/a[not(@href="javascript:void(0);")]')
+        attach = response.xpath('//ul[@class="fujian"]/li/a|//div[@class="zc_zcwj clearfix"]//a')
 
         extension = deepcopy(extension_default)
         for a in attach:
@@ -223,7 +258,6 @@ class GovBeiJingSpider(scrapy.Spider):
         extension['is_effective'] = effective(effective_start, effective_end) if is_effective == '是' else ''
         item['content'] = content
         item['title'] = title
-        item['file_type'] = file_type
         item['source'] = source if source else self.website
         item['publish_time'] = publish_time
         item['html_content'] = html_content

@@ -1,10 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Time    : 2020/2/7 5:31 下午
-# @Author  : Anson
-# @Contact : 1047053860@qq.com
-# @Software: PyCharm
-# @content :
 import datetime
 import re
 import time
@@ -34,6 +27,28 @@ def get_cookie(url):
         items.append(item)
         dict_[cookie_value['name']] = cookie_value['value']
     return dict_
+
+
+def format_doc_no(doc_no: str):
+    doc = ''
+    if doc_no and len(doc_no) <= 30 and re.findall(r'^[\u4e00-\u9fa5]', doc_no):
+        doc = doc_no
+    return doc
+
+
+def format_file_type(doc_no: str):
+    file_type = ''
+    if '〔' in doc_no:
+        file_type = obj_first(re.findall('^(.*?)〔', doc_no))
+    elif '[' in doc_no:
+        file_type = obj_first(re.findall(r'^(.*?)\[', doc_no))
+    elif obj_first(re.findall(r'^(.*?)\d{4}', doc_no)):
+        file_type = obj_first(re.findall(r'^(.*?)\d{4}', doc_no))
+    elif '第' in doc_no:
+        file_type = obj_first(re.findall('^(.*?)第', doc_no))
+    elif obj_first(re.findall(r'^(.*?)\d', doc_no)):
+        file_type = obj_first(re.findall(r'^(.*?)\d', doc_no))
+    return '' if re.findall(r'^\d', file_type) else file_type
 
 
 def time_map(t_str, error=''):
@@ -85,7 +100,9 @@ def parse2query(parse_data=None, url_join='', url_replace=''):
 
 def xpath_from_remove(response: scrapy.http.Response or str, xpath_str):
     """获取xpath_str部分的页面数据（移除script和style节点的干扰）"""
-    if isinstance(response, str):
+    if not response:
+        return ''
+    elif isinstance(response, str):
         content = HTML(response)
     else:
         content = HTML(response.text)
@@ -114,19 +131,6 @@ def effective(start, end):
 
 def find_effective_start(content, publish_time):
     return time_map(obj_first(re.findall(r'[自从]\d{4}\D\d{1,2}\D\d{1,2}\D{0,5}(?:实施|施行)', content)), error=publish_time)
-
-
-def get_file_type(doc_no):
-    file_type = ''
-    if '〔' in doc_no:
-        file_type = obj_first(re.findall('^(.*?)〔', doc_no))
-    elif '[' in doc_no:
-        file_type = obj_first(re.findall(r'^(.*?)\[', doc_no))
-    elif '第' in doc_no:
-        file_type = obj_first(re.findall('^(.*?)第', doc_no))
-    elif obj_first(re.findall(r'^(.*?)\d', doc_no)):
-        file_type = obj_first(re.findall(r'^(.*?)\d', doc_no))
-    return file_type
 
 
 class PageHTMLControl:
@@ -280,4 +284,5 @@ class TimeShow:
 if __name__ == '__main__':
     # ts = TimeShow()
     # print(ts.median(['00:30', '10:21', '01:51']))
-    print(find_effective_start('政策从2020年10月111日起正式施行', '2020-10-11'))
+    # print(find_effective_start('政策从2020年10月111日起正式施行', '2020-10-11'))
+    print(format_file_type('2014国办函2020第34号'))

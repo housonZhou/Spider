@@ -27,7 +27,7 @@ FILES_STORE = r'C:\Users\17337\houszhou\data\SpiderData\发改营商环境\附�
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 5
+CONCURRENT_REQUESTS = 8
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -96,8 +96,8 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # 运行等级：FORMAT 正式爬取 DEBUG 测试
-# RUN_LEVEL = 'FORMAT'  # FORMAT
-RUN_LEVEL = 'DEBUG'  # DEBUG
+RUN_LEVEL = 'FORMAT'  # FORMAT
+# RUN_LEVEL = 'DEBUG'  # DEBUG
 
 LOG_LEVEL = 'INFO'
 
@@ -115,3 +115,8 @@ SCRAPY_TEST = False
 
 COMMANDS_MODULE = 'policy_business.commands'
 IMG_ERROR_TYPE = ['gif']
+
+# 修改scrapy调度：广度遍历优先
+DEPTH_PRIORITY = 1
+SCHEDULER_DISK_QUEUE = 'scrapy.squeues.PickleFifoDiskQueue'
+SCHEDULER_MEMORY_QUEUE = 'scrapy.squeues.FifoMemoryQueue'

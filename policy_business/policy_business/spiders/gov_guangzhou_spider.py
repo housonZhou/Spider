@@ -10,7 +10,7 @@ import scrapy
 from policy_business.items import PolicyReformItem, extension_default
 from policy_business.settings import HEADERS, FILES_STORE, RUN_LEVEL, PRINT_ITEM, IMG_ERROR_TYPE
 from policy_business.util import obj_first, RedisConnect, xpath_from_remove, time_map, get_html_content, effective, \
-    find_effective_start
+    find_effective_start,format_doc_no, format_file_type
 
 conn = RedisConnect().conn
 
@@ -42,6 +42,8 @@ class GovGuangZhouSpider(scrapy.Spider):
             ("http://www.gz.gov.cn/ysgz/tzzc/blpc/", "办理破产", "营商环境-广州-营商政策", "政府文件"),
             ("http://www.gz.gov.cn/ysgz/tzzc/bhzxtzz/", "保护中小投资者", "营商环境-广州-营商政策", "政府文件"),
             ("http://www.gz.gov.cn/ysgz/tzzc/zfcg/", "政府采购", "营商环境-广州-营商政策", "政府文件"),
+            ("http://www.gz.gov.cn/ysgz/zcjd/wzjd/index.html", "", "营商环境-广州-文字解读", "部门解读"),
+            ("http://www.gz.gov.cn/ysgz/zcjd/tpjd/index.html", "", "营商环境-广州-图片解读", "部门解读"),
         ]
         # self.cookies = get_cookie('http://www.hubei.gov.cn/xxgk/gsgg/')
         for url, name, category, classify in urls:
@@ -68,7 +70,7 @@ class GovGuangZhouSpider(scrapy.Spider):
             # print(url)
             if 'htm' not in url:
                 pass
-                # print(url, response.url)
+                print(url, response.url)
             else:
                 yield scrapy.Request(url, callback=self.parse_detail, headers=HEADERS, meta=meta)
         # print('next_page', next_page, meta)
@@ -85,22 +87,36 @@ class GovGuangZhouSpider(scrapy.Spider):
         else:
             item = self.wenjian_style(response)
 
+        doc_no = item['extension']['doc_no']
+        doc_no = format_doc_no(doc_no)
+        item['extension']['doc_no'] = doc_no
+        item['file_type'] = format_file_type(doc_no)
+        
         name = response.meta.get('name')
+        category = response.meta.get('category')
+        classify = response.meta.get('classify')
         model_list = response.xpath('//div[@class="curmb"]/a/text()').extract()
-        model_list.append(name)
+        if name.strip():
+            model_list.append(name)
         source_module = '-'.join(model_list)
-        # source_module = response.meta.get('source_module')
-        # item = PolicyReformItem()
-        # item['content'] = content
+
+        if category == '营商环境-广州-营商政策':
+            title = item.get('title')
+            if re.findall(r'令|办法|规定|实施细则', title) and re.findall(r'[省市区]', title):
+                classify = '地方行政规章'
+            elif re.findall(r'令|办法|条例|规定|指导目录|纲要|规则|细则|准则', title):
+                classify = '行政法规'
+            elif re.findall(r'人民代表大会|条例', title) and re.findall(r'[省市区]', title):
+                classify = '地方性法规'
         item['row_id'] = row_id
         item['website'] = self.website
         item['source_module'] = source_module
         item['url'] = response.url
         # item['title'] = title
         # item['file_type'] = file_type
-        item['classify'] = response.meta.get('classify')
+        item['classify'] = classify
         # item['source'] = source
-        item['category'] = response.meta.get('category')
+        item['category'] = category
         # item['publish_time'] = publish_time
         # item['html_content'] = html_content
         for index, file_name in enumerate(item['extension'].get('file_name')):
@@ -114,6 +130,8 @@ class GovGuangZhouSpider(scrapy.Spider):
             file_name_type = os.path.splitext(file_name)[-1]
             if (not file_name_type) or re.findall(r'[^\.a-zA-Z0-9]', file_name_type) or len(file_name_type) > 7:
                 file_name = file_name + file_type
+            file_name = '{}_{}'.format(index, file_name)  # 加上索引，防止重复
+            item['extension']['file_name'][index] = file_name
             meta = {'row_id': row_id, 'file_name': file_name}
             if RUN_LEVEL == 'FORMAT':
                 yield scrapy.Request(file_url, meta=meta, headers=HEADERS, callback=self.file_download,
@@ -153,17 +171,6 @@ class GovGuangZhouSpider(scrapy.Spider):
 
         publish_time = time_map(response.xpath('//head/meta[@name="PubDate"]/@content').extract_first())
         write_time = ''
-
-        if not doc_no:
-            file_type = ''
-        elif '〔' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)〔', doc_no))
-        elif '第' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)第', doc_no))
-        elif obj_first(re.findall(r'^(.*?)\d', doc_no)):
-            file_type = obj_first(re.findall(r'^(.*?)\d', doc_no))
-        else:
-            file_type = ''
         content_str = '//*[@id="zoomcon"]'
         content = xpath_from_remove(response, 'string({})'.format(content_str)).strip()
 
@@ -210,7 +217,6 @@ class GovGuangZhouSpider(scrapy.Spider):
         extension['is_effective'] = effective(effective_start, effective_end)
         item['content'] = content
         item['title'] = title
-        item['file_type'] = file_type
         item['source'] = source.strip() if source else self.website
         item['publish_time'] = publish_time
         item['html_content'] = html_content
@@ -248,16 +254,6 @@ class GovGuangZhouSpider(scrapy.Spider):
         # source = self.website
         source = source if source else self.website
 
-        if not doc_no:
-            file_type = ''
-        elif '〔' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)〔', doc_no))
-        elif '第' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)第', doc_no))
-        elif obj_first(re.findall(r'^(.*?)\d', doc_no)):
-            file_type = obj_first(re.findall(r'^(.*?)\d', doc_no))
-        else:
-            file_type = ''
         content_str = '//div[@class="article-content"]'
         content = xpath_from_remove(response, 'string({})'.format(content_str)).strip()
 
@@ -305,7 +301,6 @@ class GovGuangZhouSpider(scrapy.Spider):
         extension['effective_end'] = effective_end
         item['content'] = content
         item['title'] = title
-        item['file_type'] = file_type
         item['source'] = source if source else self.website
         item['publish_time'] = publish_time
         item['html_content'] = html_content
@@ -338,16 +333,6 @@ class GovGuangZhouSpider(scrapy.Spider):
         publish_time = time_map(response.xpath('//head/meta[@name="PubDate"]/@content').extract_first())
         write_time = ''
 
-        if not doc_no:
-            file_type = ''
-        elif '〔' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)〔', doc_no))
-        elif '第' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)第', doc_no))
-        elif obj_first(re.findall(r'^(.*?)\d', doc_no)):
-            file_type = obj_first(re.findall(r'^(.*?)\d', doc_no))
-        else:
-            file_type = ''
         content_str = '//*[@id="zoomcon"]'
         if not response.xpath(content_str).extract_first():
             content_str = '//*[@id="info_cont"]'
@@ -393,7 +378,6 @@ class GovGuangZhouSpider(scrapy.Spider):
         extension['effective_end'] = effective_end
         item['content'] = content
         item['title'] = title
-        item['file_type'] = file_type
         item['source'] = source if source else self.website
         item['publish_time'] = publish_time
         item['html_content'] = html_content
