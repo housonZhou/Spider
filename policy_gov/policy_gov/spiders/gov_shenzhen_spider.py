@@ -32,32 +32,34 @@ class GovShenZhenSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            ("http://www.sz.gov.cn/zwgk/zfxxgk/zfwj/szfl/index.html",
-             "人民政府-深圳-市政府令", "地方行政规章"),
-            ("http://www.sz.gov.cn/cn/xxgk/zfxxgj/zcfg/szsfg/index.html",
-             "人民政府-深圳-深圳市法规及规章", "政府文件"),
-            ("http://www.sz.gov.cn/cn/xxgk/zfxxgj/ghjh/csgh/zt/index.html",
-             "人民政府-深圳-总体规划", "专项规划"),
-            ("http://www.sz.gov.cn/cn/xxgk/zfxxgj/ghjh/csgh/zxgh/index.html",
-             "人民政府-深圳-专项规划", "专项规划"),
+            # ("http://www.sz.gov.cn/zwgk/zfxxgk/zfwj/szfl/index.html",
+            #  "人民政府-深圳-市政府令", "地方行政规章"),
+            # ("http://www.sz.gov.cn/cn/xxgk/zfxxgj/zcfg/szsfg/index.html",
+            #  "人民政府-深圳-深圳市法规及规章", "政府文件"),
+            # ("http://www.sz.gov.cn/cn/xxgk/zfxxgj/ghjh/csgh/zt/index.html",
+            #  "人民政府-深圳-总体规划", "专项规划"),
+            # ("http://www.sz.gov.cn/cn/xxgk/zfxxgj/ghjh/csgh/zxgh/index.html",
+            #  "人民政府-深圳-专项规划", "专项规划"),
         ]
         # self.cookies = get_cookie('http://www.hubei.gov.cn/xxgk/gsgg/')
         for url, category, classify in urls:
             yield scrapy.Request(url, meta={'category': category, 'classify': classify},
                                  callback=self.parse, headers=HEADERS)
-        # urls = [
-        #     ("http://search.gd.gov.cn/jsonp/site/755001?callback=jQuery191039059891120008783_1589195230131&order=1&"
-        #      "category_id=2279&page=1&including_url_doc=1&pagesize=10&"
-        #      "json_ext_filter=%7B%22EXT_jdfs%22%3A%22%E6%96%87%E5%AD%97%22%7D&_=1589195230133",
-        #      "人民政府-深圳-文字解读", "部门解读"),
-        #     ("http://search.gd.gov.cn/jsonp/site/755001?callback=jQuery19104782807608425055_1589195799225&order=1&"
-        #      "category_id=2279&page=1&including_url_doc=1&pagesize=10&"
-        #      "json_ext_filter=%7B%22EXT_jdfs%22%3A%22%E5%9B%BE%E8%A1%A8%E5%9B%BE%E8%A7%A3%22%7D&_=1589195799230",
-        #      "人民政府-深圳-图解政策", "部门解读"),
-        # ]
-        # for url, category, classify in urls:
-        #     yield scrapy.Request(url, meta={'category': category, 'classify': classify},
-        #                          callback=self.parse, headers=HEADERS)
+        urls = [
+            ("http://search.gd.gov.cn/jsonp/site/755001?callback=jQuery191039059891120008783_1589195230131&order=1&"
+             "category_id=2279&page={}&including_url_doc=1&pagesize=10&"
+             "json_ext_filter=%7B%22EXT_jdfs%22%3A%22%E6%96%87%E5%AD%97%22%7D&_=1589195230133",
+             "人民政府-深圳-文字解读", "部门解读"),
+            ("http://search.gd.gov.cn/jsonp/site/755001?callback=jQuery19104782807608425055_1589195799225&order=1&"
+             "category_id=2279&page={}&including_url_doc=1&pagesize=10&"
+             "json_ext_filter=%7B%22EXT_jdfs%22%3A%22%E5%9B%BE%E8%A1%A8%E5%9B%BE%E8%A7%A3%22%7D&_=1589195799230",
+             "人民政府-深圳-图解政策", "部门解读"),
+        ]
+        for url_, category, classify in urls:
+            page = 1
+            url = url_.format(page)
+            yield scrapy.Request(url, meta={'category': category, 'classify': classify, 'page': page},
+                                 callback=self.parse, headers=HEADERS)
 
     def parse(self, response: scrapy.http.Response):
         source_module = response.meta.get('source_module')
@@ -114,6 +116,8 @@ class GovShenZhenSpider(scrapy.Spider):
             file_name_type = os.path.splitext(file_name)[-1]
             if (not file_name_type) or re.findall(r'[^\.a-zA-Z0-9]', file_name_type) or len(file_name_type) > 7:
                 file_name = file_name + file_type
+                # 修改file_name
+                item['extension']['file_name'][index] = file_name
             meta = {'row_id': row_id, 'file_name': file_name}
             if RUN_LEVEL == 'FORMAT':
                 yield scrapy.Request(file_url, meta=meta, headers=HEADERS, callback=self.file_download,

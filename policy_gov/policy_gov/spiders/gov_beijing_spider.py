@@ -32,7 +32,7 @@ class GovBeiJingSpider(scrapy.Spider):
             ("http://www.beijing.gov.cn/zhengce/gfxwj/index.html",
              "人民政府-北京-规范性文件", "政府文件"),
             ("http://www.beijing.gov.cn/zhengce/dfxfg/index.html",
-             "人民政府-北京-地方性法规", "地方行政规章"),
+             "人民政府-北京-地方性法规", "地方性法规"),
             ("http://www.beijing.gov.cn/zhengce/zcjd/index.html",
              "人民政府-北京-政策解读", "部门解读"),
             ("http://www.beijing.gov.cn/gongkai/guihua/wngh/cqgh/index.html",
@@ -102,8 +102,14 @@ class GovBeiJingSpider(scrapy.Spider):
             file_name_type = os.path.splitext(file_name)[-1]
             if (not file_name_type) or re.findall(r'[^\.a-zA-Z0-9]', file_name_type) or len(file_name_type) > 7:
                 file_name = file_name + file_type
+                # 修改file_name
+                item['extension']['file_name'][index] = file_name
             meta = {'row_id': row_id, 'file_name': file_name}
-            yield scrapy.Request(file_url, meta=meta, headers=HEADERS, callback=self.file_download, dont_filter=True)
+            if RUN_LEVEL == 'FORMAT':
+                yield scrapy.Request(file_url, meta=meta, headers=HEADERS, callback=self.file_download,
+                                     dont_filter=True)
+            else:
+                print(response.url, file_url, meta)
 
         item['extension'] = json.dumps(item['extension'], ensure_ascii=False)
         if PRINT_ITEM:

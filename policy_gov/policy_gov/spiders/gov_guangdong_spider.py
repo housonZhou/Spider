@@ -1,8 +1,8 @@
 import datetime
 import hashlib
+import json
 import os
 import re
-import json
 from copy import deepcopy
 
 import scrapy
@@ -10,7 +10,7 @@ import scrapy
 from policy_gov.items import PolicyReformItem, extension_default
 from policy_gov.settings import HEADERS, FILES_STORE, RUN_LEVEL, PRINT_ITEM, IMG_ERROR_TYPE
 from policy_gov.util import obj_first, RedisConnect, xpath_from_remove, time_map, get_html_content, effective, \
-    GovBeiJingPageControl, get_cookie, find_effective_start
+    find_effective_start, format_file_type, format_doc_no
 
 conn = RedisConnect().conn
 
@@ -21,7 +21,8 @@ class GovGuangDongSpider(scrapy.Spider):
     project_hash = 'policy_gov0508'
     website = '广东省人民政府'
     category = '人民政府-广东-{}'
-    source_module = '首页-政务公开-文件库-全部文件-{}'
+    zhengce_module = '首页-政务公开-文件库-全部文件-{}'
+    jiedu_model = '首页-政务公开-政策解读-省内政策-{}'
     # classify = '政府文件'
 
     today = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -31,16 +32,28 @@ class GovGuangDongSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            ("http://www.gd.gov.cn/zwgk/wjk/qbwj/yfl/index.html",
+            ("http://www.gd.gov.cn/zwgk/wjk/qbwj/yfl/index.html", self.zhengce_module,
              "粤府令", "地方行政规章"),
-            ("http://www.gd.gov.cn/zwgk/wjk/qbwj/yfh/index.html",
+            ("http://www.gd.gov.cn/zwgk/wjk/qbwj/yfh/index.html", self.zhengce_module,
              "粤府函", "政府文件"),
+            ("http://www.gd.gov.cn/zwgk/jhgh/index.html", self.jiedu_model,
+             "计划规划", "专项规划"),
+            ("http://www.gd.gov.cn/zwgk/zcjd/bmjd/index.html", self.jiedu_model,
+             "部门解读", "部门解读"),
+            ("http://www.gd.gov.cn/zwgk/zcjd/mtjd/index.html", self.jiedu_model,
+             "媒体解读", "媒体解读"),
+            ("http://www.gd.gov.cn/zwgk/zcjd/gnzcsd/index.html", self.jiedu_model,
+             "国内政策", "媒体解读"),
+            ("http://www.gd.gov.cn/zwgk/zcjd/snzcsd/index.html", self.jiedu_model,
+             "省内政策", "媒体解读"),
+            ("http://www.gd.gov.cn/zwgk/zcjd/wjjd/index.html", self.jiedu_model,
+             "一图读懂", "部门解读"),
         ]
         # self.cookies = get_cookie('http://www.gd.gov.cn/zwgk/wjk/qbwj/yf/index.html')
-        for url, source_module, classify in urls:
+        for url, source_module, category, classify in urls:
             yield scrapy.Request(url,
-                                 meta={"source_module": self.source_module.format(source_module),
-                                       'category': self.category.format(source_module),
+                                 meta={"source_module": source_module.format(category),
+                                       'category': self.category.format(category),
                                        'classify': classify},
                                  callback=self.parse, headers=HEADERS)
 
@@ -63,7 +76,7 @@ class GovGuangDongSpider(scrapy.Spider):
             yield scrapy.Request(url, callback=self.parse_detail, headers=HEADERS, meta=meta)
         # print('next_page', next_page, meta)
         if next_page:
-            # next_page = 'http://www.shanghai.gov.cn' + next_page
+            print(next_page)
             yield scrapy.Request(next_page, callback=self.parse, headers=HEADERS, meta=meta)
 
     def parse_detail(self, response: scrapy.http.Response):
@@ -84,18 +97,16 @@ class GovGuangDongSpider(scrapy.Spider):
                                                                                        int(post_id / 1000),
                                                                                        post_id)
             return scrapy.Request(real_url, callback=self.parse_detail, headers=HEADERS, meta=meta)
-
+        doc_no = item['extension']['doc_no']
+        doc_no = format_doc_no(doc_no)
+        item['extension']['doc_no'] = doc_no
+        item['file_type'] = format_file_type(doc_no)
         item['row_id'] = row_id
         item['website'] = self.website
         item['source_module'] = source_module
         item['url'] = response.url
-        # item['title'] = title
-        # item['file_type'] = file_type
-        item['classify'] = response.meta.get('classify')
-        # item['source'] = source
-        item['category'] = response.meta.get('category')
-        # item['publish_time'] = publish_time
-        # item['html_content'] = html_content
+        item['classify'] = classify
+        item['category'] = category
         for index, file_name in enumerate(item['extension'].get('file_name')):
             file_url = item['extension'].get('file_url')[index]
             type_ = item['extension'].get('file_type')[index]
@@ -107,12 +118,15 @@ class GovGuangDongSpider(scrapy.Spider):
             file_name_type = os.path.splitext(file_name)[-1]
             if (not file_name_type) or re.findall(r'[^\.a-zA-Z0-9]', file_name_type) or len(file_name_type) > 7:
                 file_name = file_name + file_type
+            file_name = "{}_{}".format(index, file_name)
+            item['extension']['file_name'][index] = file_name
             meta = {'row_id': row_id, 'file_name': file_name}
             if RUN_LEVEL == 'FORMAT':
                 yield scrapy.Request(file_url, meta=meta, headers=HEADERS, callback=self.file_download,
                                      dont_filter=True)
             else:
-                print(response.url, file_url, meta)
+                pass
+                # print(response.url, file_url, meta)
         item['extension'] = json.dumps(item['extension'], ensure_ascii=False)
         if PRINT_ITEM:
             print(item)
@@ -123,7 +137,6 @@ class GovGuangDongSpider(scrapy.Spider):
         item = PolicyReformItem()
         index_no = theme = effective_start = publish_time = source = effective_end = doc_no = ''
         title = write_time = ''
-        # title = response.xpath('//div[@class="tit"]/h1/text()').extract_first().strip()
         table = response.xpath('//div[@class="classify"]//td')
         for i in table:
             key = i.xpath('./label/text()').extract_first()
@@ -144,21 +157,7 @@ class GovGuangDongSpider(scrapy.Spider):
                 write_time = value
             elif '名称' in key:
                 title = value
-
-        # source = self.website
         source = source if source else self.website
-        # publish_time = time_map(response.xpath('//head/meta[@name="PubDate"]/@content').extract_first())
-
-        if not doc_no:
-            file_type = ''
-        elif '〔' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)〔', doc_no))
-        elif '第' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)第', doc_no))
-        elif obj_first(re.findall(r'^(.*?)\d', doc_no)):
-            file_type = obj_first(re.findall(r'^(.*?)\d', doc_no))
-        else:
-            file_type = ''
         content_str = '//div[@class="article-content"]'
         content = xpath_from_remove(response, 'string({})'.format(content_str)).strip()
 
@@ -168,7 +167,7 @@ class GovGuangDongSpider(scrapy.Spider):
 
         extension = deepcopy(extension_default)
         for a in attach:
-            file_name = a.xpath('string(.)').extract_first()
+            file_name = a.xpath('string(.)').extract_first(default='').strip()
             url_ = a.xpath('./@href').extract_first()
             if not url_:
                 continue
@@ -182,7 +181,7 @@ class GovGuangDongSpider(scrapy.Spider):
         attach_img = response.xpath('{}//img[not(@href="javascript:void(0);")]'.format(content_str))
         img_name = 'none'
         for a in attach_img:
-            file_name = a.xpath('./@{}'.format(img_name)).extract_first()
+            file_name = a.xpath('./@{}'.format(img_name)).extract_first(default='').strip()
             url_ = a.xpath('./@src').extract_first()
             if not url_ or url_.split('.')[-1].lower() in IMG_ERROR_TYPE:
                 continue
@@ -205,8 +204,7 @@ class GovGuangDongSpider(scrapy.Spider):
         extension['effective_end'] = effective_end
         item['content'] = content
         item['title'] = title
-        item['file_type'] = file_type
-        item['source'] = source if source else self.website
+        item['source'] = source
         item['publish_time'] = publish_time
         item['html_content'] = html_content
         item['extension'] = extension
@@ -238,22 +236,14 @@ class GovGuangDongSpider(scrapy.Spider):
                 write_time = value
             elif '标题' in key:
                 title = value
+        if not table:
+            title = response.xpath('string(//*[@class="zw-title"])').extract_first(default='').strip()
+            other = response.xpath('string(//*[@class="zw-info"])').extract_first(default='').strip()
+            source = obj_first(re.findall(r'来源 : (\S*)', other))
+            publish_time = time_map(other)
 
-        # source = self.website
         source = source if source else self.website
-        # publish_time = time_map(response.xpath('//head/meta[@name="PubDate"]/@content').extract_first())
-
-        if not doc_no:
-            file_type = ''
-        elif '〔' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)〔', doc_no))
-        elif '第' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)第', doc_no))
-        elif obj_first(re.findall(r'^(.*?)\d', doc_no)):
-            file_type = obj_first(re.findall(r'^(.*?)\d', doc_no))
-        else:
-            file_type = ''
-        content_str = '//div[@class="viewList left"]/div[@class="zw"]'
+        content_str = '//div[contains(@class, "viewList")]/div[@class="zw"]'
         content = xpath_from_remove(response, 'string({})'.format(content_str)).strip()
 
         html_content = get_html_content(response, content_str).strip()
@@ -261,7 +251,7 @@ class GovGuangDongSpider(scrapy.Spider):
         attach = response.xpath('{}//a[not(@href="javascript:void(0);")]'.format(content_str))
         extension = deepcopy(extension_default)
         for a in attach:
-            file_name = a.xpath('string(.)').extract_first()
+            file_name = a.xpath('string(.)').extract_first(default='').strip()
             url_ = a.xpath('./@href').extract_first()
             if not url_:
                 continue
@@ -276,7 +266,7 @@ class GovGuangDongSpider(scrapy.Spider):
         attach_img = response.xpath('{}//img[not(@href="javascript:void(0);")]'.format(content_str))
         img_name = 'none'
         for a in attach_img:
-            file_name = a.xpath('./@{}'.format(img_name)).extract_first()
+            file_name = a.xpath('./@{}'.format(img_name)).extract_first(default='').strip()
             url_ = a.xpath('./@src').extract_first()
             if not url_ or url_.split('.')[-1].lower() in IMG_ERROR_TYPE:
                 continue
@@ -299,8 +289,7 @@ class GovGuangDongSpider(scrapy.Spider):
         extension['effective_end'] = effective_end
         item['content'] = content
         item['title'] = title
-        item['file_type'] = file_type
-        item['source'] = source if source else self.website
+        item['source'] = source
         item['publish_time'] = publish_time
         item['html_content'] = html_content
         item['extension'] = extension
