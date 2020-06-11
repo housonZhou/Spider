@@ -27,6 +27,7 @@ class PolicyReformItem(scrapy.Item):
 extension_default = {
     'doc_no': '',  # 文号, eg:深府规【2018】12号
     'index_no': '',  # 索引号， eg：00000-10-2018-000
+    'exclusive_sub': '',  # 归属主题， eg：主题分类 分类
     'theme': '',  # 主题词
     'write_time': '',  # 成文日期
     'is_effective': '',  # 现行有效，失效，尚未生效
@@ -34,4 +35,11 @@ extension_default = {
     'file_name': [],
     'file_type': [],  # 附件所属类别， eg:相关政策解读，无则空
     'file_url': [],
+    'approve_dept': '',  # 批准部门
+    'approve_start': '',  # 批准起始时间
+    'approve_end': '',  # 批准结束时间
+    'artifi_related_title': '',  # 政策依据标题
+    'artifi_related_doc_num': '',  # 政策依据文号
+    'artifi_failure_title': '',  # 失效政策标题
+    'artifi_failure_doc_num': '',  # 失效政策文号
 }

@@ -2,21 +2,21 @@
 # Author：houszhou
 # Date ：2020/5/13 17:08
 # Tool ：PyCharm
-import requests
 import datetime
 import hashlib
+import json
 import os
 import re
-import json
-from lxml.etree import HTML
 from copy import deepcopy
 
+import requests
 import scrapy
+from lxml.etree import HTML
 
 from policy_gov.items import PolicyReformItem, extension_default
 from policy_gov.settings import HEADERS, FILES_STORE, RUN_LEVEL, PRINT_ITEM, IMG_ERROR_TYPE, SCRAPY_TEST
 from policy_gov.util import obj_first, RedisConnect, xpath_from_remove, time_map, get_html_content, effective, \
-    find_effective_start, GovSiChuangPageHTMLControl
+    find_effective_start, GovSiChuangPageHTMLControl, format_doc_no, format_file_type
 
 conn = RedisConnect().conn
 
@@ -116,20 +116,16 @@ class GovSiChuanSpider(scrapy.Spider):
             source_module = re.sub(r' > ', '-', source_module.split('：')[-1]).strip()
         else:
             source_module = '四川省-人民政府-{}'.format(category.split('-')[-1])
-        # source_module = response.meta.get('source_module')
-        # item = PolicyReformItem()
-        # item['content'] = content
+        doc_no = item['extension']['doc_no']
+        doc_no = format_doc_no(doc_no)
+        item['extension']['doc_no'] = doc_no
+        item['file_type'] = format_file_type(doc_no)
         item['row_id'] = row_id
         item['website'] = self.website
         item['source_module'] = source_module
         item['url'] = response.url
-        # item['title'] = title
-        # item['file_type'] = file_type
         item['classify'] = response.meta.get('classify')
-        # item['source'] = source
         item['category'] = category
-        # item['publish_time'] = publish_time
-        # item['html_content'] = html_content
         for index, file_name in enumerate(item['extension'].get('file_name')):
             file_url = item['extension'].get('file_url')[index]
             type_ = item['extension'].get('file_type')[index]
@@ -141,14 +137,15 @@ class GovSiChuanSpider(scrapy.Spider):
             file_name_type = os.path.splitext(file_name)[-1]
             if (not file_name_type) or re.findall(r'[^\.a-zA-Z0-9]', file_name_type) or len(file_name_type) > 7:
                 file_name = file_name + file_type
-                # 修改file_name
-                item['extension']['file_name'][index] = file_name
+            file_name = "{}_{}".format(index, file_name)
+            item['extension']['file_name'][index] = file_name
             meta = {'row_id': row_id, 'file_name': file_name}
             if RUN_LEVEL == 'FORMAT':
                 yield scrapy.Request(file_url, meta=meta, headers=HEADERS, callback=self.file_download,
                                      dont_filter=True)
             else:
-                print(response.url, file_url, meta)
+                pass
+                # print(response.url, file_url, meta)
 
         item['extension'] = json.dumps(item['extension'], ensure_ascii=False)
         if PRINT_ITEM:
@@ -174,18 +171,6 @@ class GovSiChuanSpider(scrapy.Spider):
         is_eff = response.xpath('string(//td[@class="box"]//td[@class="box"]/table/tbody/tr[2]/td[6])').extract_first()
         is_eff = re.sub(r'\s', '', is_eff) if is_eff else ''
 
-        if not doc_no:
-            file_type = ''
-        elif '〔' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)〔', doc_no))
-        elif '[' in doc_no:
-            file_type = obj_first(re.findall(r'^(.*?)\[', doc_no))
-        elif '第' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)第', doc_no))
-        elif obj_first(re.findall(r'^(.*?)\d', doc_no)):
-            file_type = obj_first(re.findall(r'^(.*?)\d', doc_no))
-        else:
-            file_type = ''
         content_str = '//td[@valign="top"]'
         content = xpath_from_remove(response, 'string({})'.format(content_str)).strip()
 
@@ -240,7 +225,6 @@ class GovSiChuanSpider(scrapy.Spider):
         extension['is_effective'] = is_effective
         item['content'] = content
         item['title'] = title
-        item['file_type'] = file_type
         item['source'] = source
         item['publish_time'] = publish_time
         item['html_content'] = html_content
@@ -267,20 +251,6 @@ class GovSiChuanSpider(scrapy.Spider):
         if end and '失效' in end:
             effective_end = time_map(end)
 
-        if not doc_no:
-            file_type = ''
-        elif '〔' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)〔', doc_no))
-        elif '[' in doc_no:
-            file_type = obj_first(re.findall(r'^(.*?)\[', doc_no))
-        elif '【' in doc_no:
-            file_type = obj_first(re.findall(r'^(.*?)【', doc_no))
-        elif '第' in doc_no:
-            file_type = obj_first(re.findall('^(.*?)第', doc_no))
-        elif obj_first(re.findall(r'^(.*?)\d', doc_no)):
-            file_type = obj_first(re.findall(r'^(.*?)\d', doc_no))
-        else:
-            file_type = ''
         content_str = '//*[@id="cmsArticleContent"]'
         content = xpath_from_remove(response, 'string({})'.format(content_str)).strip()
 
@@ -328,7 +298,6 @@ class GovSiChuanSpider(scrapy.Spider):
         extension['effective_end'] = effective_end
         item['content'] = content
         item['title'] = title
-        item['file_type'] = file_type
         item['source'] = source if source else self.website
         item['publish_time'] = publish_time
         item['html_content'] = html_content

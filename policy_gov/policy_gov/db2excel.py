@@ -64,7 +64,9 @@ def main(date):
             'extension#扩展字段#json': extension,
         }
         write_json[website].append(data)
-    save_dir = r'C:\Users\17337\houszhou\data\SpiderData\发改人民政府政策\excel'
+    save_dir = r'C:\Users\17337\houszhou\data\SpiderData\发改人民政府政策\excel\{}'.format(date)
+    if not os.path.exists(save_dir):
+        os.mkdir(save_dir)
     for website, write_list in write_json.items():
         save_path = os.path.join(save_dir, '{}_{}.xlsx'.format(website, ''.join(date.split('-'))))
         df = pd.DataFrame(write_list)
@@ -80,6 +82,6 @@ def split_title(excel_file, save_file):
 
 
 if __name__ == '__main__':
-    main('2020-05-07')
+    main('2020-06-09')
     # split_title(r"C:\Users\17337\houszhou\data\SpiderData\发改政策\new\上海市人民政府_20200423.xlsx",
     #             r"C:\Users\17337\houszhou\data\SpiderData\发改政策\new\上海市人民政府_20200423_split.xlsx")

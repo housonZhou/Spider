@@ -154,7 +154,8 @@ class GovSpider(scrapy.Spider):
                 yield scrapy.Request(file_url, meta=meta, headers=HEADERS, callback=self.file_download,
                                      dont_filter=True)
             else:
-                print(response.url, file_url, meta)
+                pass
+                # print(response.url, file_url, meta)
 
         item['extension'] = json.dumps(item['extension'], ensure_ascii=False)
         if PRINT_ITEM:

@@ -7,7 +7,7 @@
 import pymysql
 
 from policy_gov.items import PolicyReformItem
-from policy_gov.settings import DB_INFO, RUN_LEVEL
+from policy_gov.settings import DB_INFO, RUN_LEVEL, PIPELINES_COMMIT
 
 
 class PolicyReformPipeline(object):
@@ -16,9 +16,15 @@ class PolicyReformPipeline(object):
         self.cur = self.con.cursor()
 
     def execute(self, sql, meta=None, result=False):
-        self.cur.execute(sql, meta)
-        if result:
-            return self.cur.fetchall()
+        try:
+            self.cur.execute(sql, meta)
+            if result:
+                return self.cur.fetchall()
+        except pymysql.err.InterfaceError:
+            self.con.ping(reconnect=True)
+            self.cur.execute(sql, meta)
+            if result:
+                return self.cur.fetchall()
 
     @ staticmethod
     def insert_sql(keys):
@@ -31,7 +37,7 @@ class PolicyReformPipeline(object):
         keys = item.keys()
         values = tuple(list(item.values()))
         self.execute(sql=self.insert_sql(keys), meta=values)
-        if RUN_LEVEL == 'FORMAT':
+        if RUN_LEVEL == 'FORMAT' or PIPELINES_COMMIT:
             self.con.commit()
         # self.con.commit()
         return item

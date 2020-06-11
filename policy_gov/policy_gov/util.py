@@ -1,10 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Time    : 2020/2/7 5:31 下午
-# @Author  : Anson
-# @Contact : 1047053860@qq.com
-# @Software: PyCharm
-# @content :
 import datetime
 import re
 import time
@@ -36,13 +29,35 @@ def get_cookie(url):
     return dict_
 
 
+def format_doc_no(doc_no: str):
+    doc = ''
+    if doc_no and len(doc_no) <= 30 and re.findall(r'^[\u4e00-\u9fa5]', doc_no) and re.findall(r'令|第|公告|号|\d', doc_no):
+        doc = doc_no
+    return doc
+
+
+def format_file_type(doc_no: str):
+    file_first = obj_first(re.findall(r'^(.*?)[〔\[【［]', doc_no))
+    if file_first:
+        file_type = file_first
+    elif obj_first(re.findall(r'^(.*?)\d{4}', doc_no)):
+        file_type = obj_first(re.findall(r'^(.*?)\d{4}', doc_no))
+    elif '第' in doc_no:
+        file_type = obj_first(re.findall('^(.*?)第', doc_no))
+    elif obj_first(re.findall(r'^(.*?)\d', doc_no)):
+        file_type = obj_first(re.findall(r'^(.*?)\d', doc_no))
+    else:
+        file_type = ''
+    return '' if re.findall(r'^\d', file_type) else re.sub(r'[〔\[【［]', '', file_type)
+
+
 def time_map(t_str, error=''):
     """
     >>>time_map('发布日期：2020年2月18日')
     2020-02-18
     """
     try:
-        year, month, day = re.findall(r'(\d{4})\D(\d{1,2})\D(\d{1,2})', t_str)[0]
+        year, month, day = re.findall(r'(\d{4})\D(\d{1,2})\D(\d{1,2})', t_str.strip())[0]
         return '{}-{:0>2}-{:0>2}'.format(year, month, day)
     except:
         return error
@@ -83,9 +98,15 @@ def parse2query(parse_data=None, url_join='', url_replace=''):
         return query
 
 
-def xpath_from_remove(response: scrapy.http.Response, xpath_str):
+def xpath_from_remove(response: scrapy.http.Response or str, xpath_str, lower=False):
     """获取xpath_str部分的页面数据（移除script和style节点的干扰）"""
-    content = HTML(response.text)
+    if not response:
+        return ''
+    elif not isinstance(response, str):
+        response = response.text
+    if lower:
+        response = response.lower()
+    content = HTML(response)
     for dom in content.xpath('//script'):
         new_content = dom.getparent()
         new_content.remove(dom)
@@ -198,41 +219,43 @@ class GovBeiJingPageControl:
             return None
 
 
+class GovSiChuangPageHTMLControl:
+    """
+    翻页器：
+    {createPageHTML('page_div',15, 1,'list_ft','shtml',450);}
+    pageControl(4, 2, "index", "shtml", 10, 'pages-nav');
+             http://www.sc.gov.cn/10462/10464/10684/12419/list_ft.shtml
+    """
+    def __init__(self, response: str, re_str='createPageHTML(.*?);', count=False):
+        # createPageHTML(89, 1,"index", "shtml",  "black2",621);
+        self.find = re.findall(r'{}'.format(re_str), response)
+        try:
+            if count:
+                self.total, self.count, self.now, self.default, self.type, *_ = eval(self.find[0])
+            else:
+                _, self.total, self.now, self.default, self.type, *_ = eval(self.find[0])
+        except:
+            self.total = self.now = self.default = self.type = None
+
+    def next_page(self, url):
+        if not self.find:
+            return None
+        elif self.total - 1 >= self.now:
+            base_url = url.split('/')
+            base_url[-1] = '{}_{}.{}'.format(self.default, self.now + 1, self.type)
+            return '/'.join(base_url)
+        else:
+            return None
+
+
 class RedisConnect:
     def __init__(self):
         pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
         self.conn = redis.StrictRedis(connection_pool=pool)
 
 
-class TimeShow:
-    @staticmethod
-    def to_second(time_str):
-        second = 0
-        try:
-            m, s = time_str.split(':')
-            second = int(m) * 60 + int(s)
-        except:
-            pass
-        return second
-
-    @staticmethod
-    def to_min_second(time_str):
-        min_second = '0'
-        try:
-            time_str = int(time_str)
-            m = time_str // 60
-            s = time_str % 60
-            min_second = '{:0>2}:{:0>2}'.format(m, s)
-        except:
-            pass
-        return min_second
-
-    def median(self, time_list):
-        time_median = sorted(self.to_second(i) for i in time_list)
-        return self.to_min_second(time_median[1])
-
-
 if __name__ == '__main__':
     # ts = TimeShow()
     # print(ts.median(['00:30', '10:21', '01:51']))
-    print(find_effective_start('政策从2020年10月111日起正式施行', '2020-10-11'))
+    # print(find_effective_start('政策从2020年10月111日起正式施行', '2020-10-11'))
+    print(format_file_type('深府购 [2019] 61号'))

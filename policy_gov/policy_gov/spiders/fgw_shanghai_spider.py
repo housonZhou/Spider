@@ -1,23 +1,27 @@
+# coding: utf-8
+# Author：houszhou
+# Date ：2020/6/9 16:53
+# Tool ：PyCharm
 import datetime
 import hashlib
+import json
 import os
 import re
-import json
 from copy import deepcopy
 
 import scrapy
 
 from policy_gov.items import PolicyReformItem, extension_default
 from policy_gov.settings import HEADERS, FILES_STORE, RUN_LEVEL, PRINT_ITEM, IMG_ERROR_TYPE
-from policy_gov.util import obj_first, RedisConnect, xpath_from_remove, time_map, get_html_content, effective, \
-    GovBeiJingPageControl, find_effective_start, format_file_type, format_doc_no
+from policy_gov.util import RedisConnect, xpath_from_remove, time_map, get_html_content, effective, \
+    find_effective_start, format_file_type, format_doc_no
 
 
-class GovBeiJingSpider(scrapy.Spider):
-    name = 'GovBeiJingSpider'
+class FgwShangHaiSpider(scrapy.Spider):
+    name = 'FgwShangHaiSpider'
 
     project_hash = 'policy_gov0508'
-    website = '北京市人民政府'
+    website = '上海市发展和改革委员会'
     # classify = '政府文件'
 
     today = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -27,43 +31,32 @@ class GovBeiJingSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            ("http://www.beijing.gov.cn/zhengce/zfwj/zfwj2016/szfl/index.html",
-             "人民政府-北京-市政府令", "地方行政规章"),
-            ("http://www.beijing.gov.cn/zhengce/gfxwj/index.html",
-             "人民政府-北京-规范性文件", "政府文件"),
-            ("http://www.beijing.gov.cn/zhengce/dfxfg/index.html",
-             "人民政府-北京-地方行政规章", "地方性法规"),
-            ("http://www.beijing.gov.cn/zhengce/zcjd/index.html",
-             "人民政府-北京-政策解读", "部门解读"),
-            ("http://www.beijing.gov.cn/gongkai/guihua/wngh/cqgh/index.html",
-             "人民政府-北京-长期规划", "发展规划"),
-            ("http://www.beijing.gov.cn/gongkai/guihua/wngh/sjzdzxgh/index.html",
-             "人民政府-北京-市级重点专项规划", "专项规划"),
-            ("http://www.beijing.gov.cn/gongkai/guihua/wngh/ybzxgh/index.html",
-             "人民政府-北京-市级一般专项规划", "专项规划"),
-            ("http://www.beijing.gov.cn/gongkai/guihua/wngh/qjghgy/index.html",
-             "人民政府-北京-区级规划纲要", "发展规划"),
-            ("http://www.beijing.gov.cn/gongkai/guihua/wngh/qtgh/index.html",
-             "人民政府-北京-其他规划", "专项规划"),
+            ("http://fgw.sh.gov.cn/ggjd/index.html", "发改委-上海-规划解读", "部门解读"),
+            ("http://fgw.sh.gov.cn/ggwbhwgwj/index.html", "发改委-上海-规划文本和有关文件", "发展规划"),
+            ("http://fgw.sh.gov.cn/jgl/", "发改委-上海-价格类政策文件", "政府文件"),
+            ("http://fgw.sh.gov.cn/zcwj01/index.html", "发改委-上海-能源管理和节能减排政策文件", "政府文件"),
+            ("http://fgw.sh.gov.cn/zcwj02/", "发改委-上海-产业发展政策文件", "政府文件"),
+            ("http://fgw.sh.gov.cn/bwyfz/index.html", "发改委-上海-服务业发展", "政府文件"),
+            ("http://fgw.sh.gov.cn/cxfz/index.html", "发改委-上海-创新发展", "政府文件"),
+            ("http://fgw.sh.gov.cn/gyfz/index.html", "发改委-上海-区域发展", "政府文件"),
+            ("http://fgw.sh.gov.cn/cxzx/", "发改委-上海-创新中心", "政府文件"),
+            ("http://fgw.sh.gov.cn/dzbzgg/index.html", "发改委-上海-投资体制改革", "政府文件"),
+            ("http://fgw.sh.gov.cn/zcwj03/", "发改委-上海-社会发展政策文件", "政府文件"),
         ]
         # self.cookies = get_cookie('http://www.hubei.gov.cn/xxgk/gsgg/')
         for url, category, classify in urls:
-            yield scrapy.Request(url, meta={"classify": classify, 'category': category},
+            yield scrapy.Request(url, meta={'category': category, 'classify': classify},
                                  callback=self.parse, headers=HEADERS)
 
     def parse(self, response: scrapy.http.Response):
         conn = RedisConnect().conn
         classify = response.meta.get('classify')
         category = response.meta.get('category')
-        meta = {"classify": classify, 'category': category}
-        url = response.url
-        if '/zfwj2016/' in url:
-            pager = JsPage(response.text)
-        else:
-            pager = GovBeiJingPageControl(response.text)
-        next_page = pager.next_page(url)
-
-        for item in response.xpath('//ul[@class="list"]/li/a'):
+        meta = {'category': category, 'classify': classify}
+        pager = JsPage(response.text)
+        next_page = pager.next_page(response.url)
+        page_exists = response.xpath('//div[@class="xwzx_list"]//li/a')
+        for item in page_exists:
             link = item.xpath('./@href').extract_first()
             url = response.urljoin(link)
             if RUN_LEVEL == 'FORMAT':
@@ -73,7 +66,7 @@ class GovBeiJingSpider(scrapy.Spider):
                     conn.hset(self.project_hash, category + '-' + url, 1)
             # print(url, meta)
             yield scrapy.Request(url, callback=self.parse_detail, headers=HEADERS, meta=meta)
-        # print('next_page', next_page, meta)
+        print('next_page', next_page, meta)
         if next_page:
             yield scrapy.Request(next_page, callback=self.parse, headers=HEADERS, meta=meta)
 
@@ -81,29 +74,26 @@ class GovBeiJingSpider(scrapy.Spider):
         row_id = hashlib.md5(response.url.encode()).hexdigest()
         item = self.zhengce_style(response)
 
-        source_module = '-'.join(response.xpath('//div[@class="crumbs"]/a/text()').extract())
+        source_module = '-'.join(response.xpath('//div[@class="xwzx_loc"]/a/text()').extract()[1:]).replace('>', '')
         doc_no = item['extension']['doc_no']
         doc_no = format_doc_no(doc_no)
         item['extension']['doc_no'] = doc_no
         item['file_type'] = format_file_type(doc_no)
-        classify = response.meta.get('classify')
         item['row_id'] = row_id
         item['website'] = self.website
         item['source_module'] = source_module
         item['url'] = response.url
-        category = response.meta.get('category')
-        if (category == '人民政府-北京-地方行政规章') and ('人民代表大会' in item.get('title')):
-            classify = '地方性法规'
-        item['category'] = category
-        item['classify'] = classify
-
+        item['classify'] = response.meta.get('classify')
+        item['category'] = response.meta.get('category')
         for index, file_name in enumerate(item['extension'].get('file_name')):
             file_url = item['extension'].get('file_url')[index]
             type_ = item['extension'].get('file_type')[index]
             if type_ == 'url':
                 continue
-            file_type = os.path.splitext(file_url.split('/')[-1])[-1]
-            file_name_type = os.path.splitext(file_name)[-1]
+            if not file_name:
+                file_name = file_url.split('/')[-1]
+            file_type = os.path.splitext(file_url.split('/')[-1])[-1]  # 链接的文件类型
+            file_name_type = os.path.splitext(file_name)[-1]  # 页面上显示的文件类型
             if (not file_name_type) or re.findall(r'[^\.a-zA-Z0-9]', file_name_type) or len(file_name_type) > 7:
                 file_name = file_name + file_type
             file_name = "{}_{}".format(index, file_name)
@@ -123,48 +113,33 @@ class GovBeiJingSpider(scrapy.Spider):
 
     def zhengce_style(self, response):
         item = PolicyReformItem()
-        index_no = write_time = doc_no = publish_time = theme = ''
-        source = pub_other = effective_start = is_effective = effective_end = ''
-        title = response.xpath('//div[@class="header"]//p/text()').extract_first().strip()
-        tables = response.xpath('//div[@class="container"]/ol/li')
-        for i in tables:
-            doc = i.xpath('./text()').extract_first()
-            span = ''.join(i.xpath('string(./span)').extract())
-            span = span if span else ''
-            if '发文机构' in doc:
-                source = span
-            elif '联合发文单位' in doc:
-                pub_other = span
-            elif '发文字号' in doc:
-                doc_no = span
-            elif '主题分类' in doc:
-                theme = span
-            elif '成文日期' in doc:
-                write_time = time_map(span)
-            elif '发布日期' in doc:
-                publish_time = time_map(span)
-            elif '有效性' in doc:
-                is_effective = span
-            elif '实施日期' in doc:
-                effective_start = time_map(span)
-            # elif '废止日期' in doc:
-            #     effective_end = span
-        if pub_other:
-            source = '{};{}'.format(source, pub_other)
-        if doc_no:
-            doc_no = re.sub(r'〔〕号|〔〕', '', doc_no)
+        theme = effective_start = write_time = effective_end = publish_time = doc_no = index_no = source = ''
+        title = response.xpath('//*[@id="ivs_title"]/h3/text()').extract_first(default='').strip()
+        table = response.xpath('//div[@class="xwzx_time1"]/ul/li')
+        for i in table:
+            text = i.xpath('./text()').extract_first(default='')
+            key = re.sub(r'\s', '', text.split('：')[0])
+            value = text.split('：')[-1].strip()
+            # print(key, value)
+            if '索取号' in key:
+                index_no = value
+            elif '发布日期' in key:
+                publish_time = time_map(value)
+            elif '主题词' in key:
+                theme = value
+            elif '文号' in key:
+                doc_no = value
+            elif '发布机关' in key:
+                source = value
 
-        if not source and not publish_time:
-            message = response.xpath('string(//p[@class="fl"])').extract_first(default='')
-            source = obj_first(re.findall(r'来源：\s*([^\s\|]*)\s*', message))
-            publish_time = time_map(message)
-
-        content_str = '//*[@id="mainText"]'
+        content_str = '//*[@id="ivs_content"]'
         content = xpath_from_remove(response, 'string({})'.format(content_str)).strip()
 
         html_content = get_html_content(response, content_str).strip()
         # 附件信息
-        attach = response.xpath('//ul[@class="fujian"]/li/a[not(@href="javascript:void(0);")]')
+        attach_str = '{}//a[not(@href="javascript:void(0);")]'
+        attach = response.xpath('{}|{}'.format(
+            attach_str.format(content_str), attach_str.format('//div[@class="xglj_list"]')))
 
         extension = deepcopy(extension_default)
         for a in attach:
@@ -202,7 +177,7 @@ class GovBeiJingSpider(scrapy.Spider):
         extension['write_time'] = write_time
         extension['effective_start'] = effective_start
         extension['effective_end'] = effective_end
-        extension['is_effective'] = effective(effective_start, effective_end) if is_effective == '是' else ''
+        extension['is_effective'] = effective(effective_start, effective_end)
         item['content'] = content
         item['title'] = title
         item['source'] = source if source else self.website
@@ -226,27 +201,23 @@ class GovBeiJingSpider(scrapy.Spider):
 
 class JsPage:
     """
-    <script type="text/javascript">
-    var pageName = "index";
-    var pageExt = "html";
-    var pageIndex = 1 + 1;
-    var pageCount = 11;
+    $(".pagination").pagination("setPage",2,6);
     """
 
-    def __init__(self, response):
+    def __init__(self, response: str, re_str='\$\("\.pagination"\)\.pagination(.*?);'):
+        # createPageHTML(89, 1,"index", "shtml",  "black2",621);
+        self.find = re.findall(r'{}'.format(re_str), response)
         try:
-            self.find = True
-            self.total = int(re.findall(r'var pageCount \= (\d+);', response)[0])
-            self.now = int(re.findall(r'var pageIndex \= (\d+) \+ 1', response)[0])
-            self.default = re.findall(r'var pageName \= "(.*?)";', response)[0]
-            self.type = re.findall(r'var pageExt \= "(.*?)";', response)[0]
+            _, self.now, self.total = eval(self.find[0])
         except:
-            self.find = self.total = self.now = self.default = self.type = None
+            self.total = self.now = None
+        self.default = 'index'
+        self.type = 'html'
 
     def next_page(self, url):
         if not self.find:
             return None
-        elif self.total - 1 > self.now:
+        elif self.total > self.now:
             base_url = url.split('/')
             base_url[-1] = '{}_{}.{}'.format(self.default, self.now + 1, self.type)
             return '/'.join(base_url)

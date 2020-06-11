@@ -126,6 +126,8 @@ class GovHangZhouSpider(scrapy.Spider):
         item['category'] = category
         for index, file_name in enumerate(item['extension'].get('file_name')):
             file_url = item['extension'].get('file_url')[index]
+            if 'data:image' in file_url:
+                continue
             file_type = os.path.splitext(file_url.split('/')[-1])[-1]
             file_name_type = os.path.splitext(file_name)[-1]
             if (not file_name_type) or re.findall(r'[^\.a-zA-Z0-9]', file_name_type) or len(file_name_type) > 7:

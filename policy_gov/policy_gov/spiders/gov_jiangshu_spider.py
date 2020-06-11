@@ -135,6 +135,8 @@ class GovJiangSuSpider(scrapy.Spider):
         item['category'] = category
         for index, file_name in enumerate(item['extension'].get('file_name')):
             file_url = item['extension'].get('file_url')[index]
+            if 'data:image' in file_url:
+                continue
             type_ = item['extension'].get('file_type')[index]
             if type_ == 'url':
                 continue
